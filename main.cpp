@@ -3,9 +3,21 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include "config.h"
 
 int main(int argc, char *argv[])
 {
+    // consistency with Qt6
+#if QT_VERSION < 0x060000
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+#endif
+#if QT_VERSION >= 0x050E00
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
+
+    QCoreApplication::setApplicationName(PROJECT_NAME);
+    QCoreApplication::setApplicationVersion(PROJECT_VERSION);
+
     QApplication a(argc, argv);
 
     QTranslator translator;
@@ -17,6 +29,7 @@ int main(int argc, char *argv[])
             break;
         }
     }
+
     MainWindow w;
     w.show();
     return a.exec();

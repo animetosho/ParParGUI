@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OptionsDialog</class>
+ <widget class="QDialog" name="OptionsDialog">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>504</width>
+    <height>343</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ParPar - Options</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>ParPar Executable</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_5">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>ParPar binary/script</string>
+            </property>
+            <property name="buddy">
+             <cstring>txtPathParPar</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLineEdit" name="txtPathParPar"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnPathParPar">
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="chkPathNode">
+            <property name="text">
+             <string>Node.js engine</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QLineEdit" name="txtPathNode">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnPathNode">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QGroupBox" name="groupBox_6">
+           <property name="title">
+            <string>PAR2 Options</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <layout class="QFormLayout" name="formLayout_4">
+              <item row="0" column="0">
+               <widget class="QLabel" name="unicodePacketsLabel">
+                <property name="text">
+                 <string>Unicode packets</string>
+                </property>
+                <property name="buddy">
+                 <cstring>cboUnicode</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QComboBox" name="cboUnicode">
+                <item>
+                 <property name="text">
+                  <string>Auto</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Never include</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Always include</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="LocalCharsetLabel">
+                <property name="text">
+                 <string>8-bit charset</string>
+                </property>
+                <property name="buddy">
+                 <cstring>cboCharset</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QComboBox" name="cboCharset">
+                <item>
+                 <property name="text">
+                  <string>utf8</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>latin1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>ascii</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="chkStdNaming">
+              <property name="text">
+               <string>Use spec-defined volume naming</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_7">
+           <property name="title">
+            <string>UI Options</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_6">
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="chkSliceMultiple">
+              <property name="text">
+               <string>Enforce slice size multiple</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="SizeEdit" name="txtSliceMultiple">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string notr="true">750K</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Performance Tuning</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,8">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Reading</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="readSizeLabel">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Read size</string>
+              </property>
+              <property name="buddy">
+               <cstring>txtReadSize</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="SizeEdit" name="txtReadSize">
+              <property name="toolTip">
+               <string>The maximum amount of data which can be read in a single read call. This value is mostly used during sequential processing.</string>
+              </property>
+              <property name="text">
+               <string notr="true">4M</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="readBuffersLabel">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Read buffers</string>
+              </property>
+              <property name="buddy">
+               <cstring>txtReadBufs</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSpinBox" name="txtReadBufs">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The maximum number of outstanding reads to hold in memory. Once all buffers have been filled, reading will halt until the back-end finishes processing a buffer, making it available for the next read.&lt;br/&gt;Larger values increase memory usage (where each buffer is sized according to &lt;span style=&quot; font-style:italic;&quot;&gt;Read size&lt;/span&gt;) but may allow for better variation and flexibility during processing.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>32768</number>
+              </property>
+              <property name="value">
+               <number>8</number>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="hashQueueLabel">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Hash queue</string>
+              </property>
+              <property name="buddy">
+               <cstring>txtHashQueue</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QSpinBox" name="txtHashQueue">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The maximum number of outstanding unhashed &lt;span style=&quot; font-style:italic;&quot;&gt;Read buffers&lt;/span&gt; associated with a file. Once a file's hash queue has been filled, read buffers will be allocated to reading from another file. This option enables multiple files to be hashed concurrently, working around the bottleneck of single-threaded file hashing, whilst considering the fact that hard drives strongly prefer sequential reading.&lt;br/&gt;Larger values decrease the likelihood of reading from concurrent files. SSDs or disks with fast random access may prefer smaller values than the default.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>32768</number>
+              </property>
+              <property name="value">
+               <number>5</number>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="minChunkSizeLabel_2">
+              <property name="text">
+               <string>Min chunk size</string>
+              </property>
+              <property name="buddy">
+               <cstring>txtMinChunk</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="SizeEdit" name="txtMinChunk">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The minimum unit of data to process during chunked processing.&lt;br/&gt;Allowing smaller chunks generally improves efficiency, but increases per-chunk overhead.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string notr="true">128K</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="title">
+            <string>Writing</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="recoveryBuffersLabel">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Recovery buffers</string>
+              </property>
+              <property name="buddy">
+               <cstring>txtRecBufs</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="txtRecBufs">
+              <property name="toolTip">
+               <string>The number of outstanding recovery slices from the processing back-end to hold in memory. Once these buffers have been filled, pulling from the back-end will wait until the buffers have been hashed and written to disk.</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>65535</number>
+              </property>
+              <property name="value">
+               <number>12</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="hashBatchSizeLabel">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Hash batch size</string>
+              </property>
+              <property name="buddy">
+               <cstring>txtRecHashBatch</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSpinBox" name="txtRecHashBatch">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of &lt;span style=&quot; font-style:italic;&quot;&gt;Recovery buffers&lt;/span&gt; to send to the multi-buffer MD5 kernel for hashing. The process will wait for this many recovery buffers to be filled before attempting to hash them.&lt;br/&gt;Larger values may allow for wider SIMD to be used for MD5 hashing, but requires more memory and may reduce hash-write concurrency.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>65535</number>
+              </property>
+              <property name="value">
+               <number>8</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="title">
+            <string>Recovery Computation</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_3">
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="chkProcBatch">
+              <property name="text">
+               <string>Batch size</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="txtProcBatch">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>32768</number>
+              </property>
+              <property name="value">
+               <number>12</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="chkMemLimit">
+              <property name="text">
+               <string>Memory limit</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="SizeEdit" name="txtMemLimit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string notr="true">256M</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="chkProcKernel">
+              <property name="text">
+               <string>GF16 kernel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="cboProcKernel">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <item>
+               <property name="text">
+                <string notr="true">lookup</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">3p_lookup</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QCheckBox" name="chkThreads">
+              <property name="text">
+               <string>Threads</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QSpinBox" name="txtThreads">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>999</number>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="chkTileSize">
+              <property name="text">
+               <string>Loop tile size</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="SizeEdit" name="txtTileSize">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string notr="true">32K</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="btnReset">
+       <property name="text">
+        <string>Reset</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="btnBox">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SizeEdit</class>
+   <extends>QLineEdit</extends>
+   <header>sizeedit.h</header>
+   <slots>
+    <signal>updateFinished()</signal>
+    <signal>valueChanged(quint64,bool)</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btnBox</sender>
+   <signal>accepted()</signal>
+   <receiver>OptionsDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>334</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnBox</sender>
+   <signal>rejected()</signal>
+   <receiver>OptionsDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>409</x>
+     <y>334</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
