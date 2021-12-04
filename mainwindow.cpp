@@ -129,8 +129,8 @@ void MainWindow::adjustExpansion(bool allowExpand) {
     ui->grpDest->adjustSize();
 
     if(inExp || outExp) {
-        this->setMaximumHeight(16777216);
-        ui->scrollArea->setMaximumHeight(16777216);
+        this->setMaximumHeight(16777215);
+        ui->scrollArea->setMaximumHeight(16777215);
 
         if(allowExpand) {
             // TODO: detect screen height and restrict resize?
