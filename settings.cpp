@@ -16,7 +16,7 @@ QStringList Settings::parparBin(bool* isSystemExecutable) const
         if(!pathNode.isEmpty()) {
             if(pathNode != "node") // system executable - can't make absolute
                 pathNode = pathConverter(pathNode);
-            return {pathConverter(pathNode), pathConverter(pathParPar)};
+            return {pathNode, pathConverter(pathParPar)};
         } else {
             if(pathParPar != "parpar")
                 pathParPar = pathConverter(pathParPar);
@@ -70,17 +70,18 @@ static QString relPathConverter(const QString& file)
     QDir cd;
     QFileInfo info(file);
     if(info.isAbsolute()) {
-        QString relPath = cd.relativeFilePath(file).replace("/", QDir::separator());
+        QString relPath = cd.relativeFilePath(file);
 #ifdef Q_OS_WINDOWS
         // on Windows, can't use relative paths if on different drives (or drive <> UNC path)
         if(cd.absolutePath().left(2).compare(file.left(2), Qt::CaseInsensitive) == 0)
 #else
         // on *nix, path in current dir should have preceeding './'
         // (we don't really require it, because we're not executing over a shell, but it distinguishes a local binary vs system binary)
-        if(!relPath.contains(QDir::separator()))
+        if(!relPath.contains("/"))
             return QString(".") + QDir::separator() + relPath;
 #endif
-        return relPath;
+        if(!relPath.startsWith("../")) // only allow relative paths if in the same folder
+            return relPath.replace("/", QDir::separator());
     }
     return file;
 }

@@ -124,7 +124,7 @@ void MainWindow::adjustExpansion(bool allowExpand) {
     ui->fraDestOpts->layout()->setContentsMargins(destOptsMargin);
 
     auto destPolicy = ui->grpDest->sizePolicy();
-    destPolicy.setVerticalPolicy(outExp ? QSizePolicy::Preferred : QSizePolicy::Maximum);
+    destPolicy.setVerticalPolicy(outExp ? QSizePolicy::Expanding : QSizePolicy::Maximum);
     ui->grpDest->setSizePolicy(destPolicy);
     ui->grpDest->adjustSize();
 

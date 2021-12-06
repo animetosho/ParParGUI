@@ -306,6 +306,7 @@ void CreateProgress::on_CreateProgress_rejected()
         // TODO: look at using .terminate() for non-Windows
         parpar.kill();
         ended(tr("Cancelled"), false);
+        parpar.waitForFinished(1000); // try to avoid warning of destroying QProcess whilst still active
         deleteOutput();
     }
 }
@@ -341,7 +342,7 @@ void CreateProgress::on_btnBackground_clicked()
         }
     }
     if(!SetPriorityClass(hPP, isBackground ? IDLE_PRIORITY_CLASS : normPrio)) {
-        ui->btnBackground->setEnabled(!isBackground);
+        ui->btnBackground->setChecked(!isBackground);
     }
     CloseHandle(hPP);
 #elif defined(Q_OS_UNIX)
@@ -365,7 +366,9 @@ void CreateProgress::on_btnBackground_clicked()
     }
 
     if(setpriority(PRIO_PROCESS, parpar.processId(), isBackground ? 19 : normPrio)) {
-        ui->btnBackground->setEnabled(!isBackground);
+        ui->btnBackground->setChecked(!isBackground);
+        // TODO: it seems like you can't increase priority back to normal on Linux
+        // TODO: if failed, the settings change is still persisted
     }
 #endif
 
