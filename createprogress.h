@@ -22,7 +22,7 @@ class CreateProgress : public QDialog
 
 public:
     explicit CreateProgress(QWidget *parent = nullptr);
-    void run(QStringList args, const QByteArray& inFiles, const QString& baseOutput_, const QString& outDir_, const QStringList& outFiles_);
+    void run(QStringList args, const QHash<QString, QString>& env, const QByteArray& inFiles, const QString& baseOutput_, const QString& outDir_, const QStringList& outFiles_);
     ~CreateProgress();
 
 private slots:
@@ -48,7 +48,7 @@ private:
     QString outDir;
     QStringList outFiles;
 
-    QString stdoutBuffer;
+    QByteArray stdoutBuffer;
     bool isCancelled;
 
     void deleteOutput();

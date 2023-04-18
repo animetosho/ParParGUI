@@ -9,9 +9,9 @@
 class Par2Calc
 {
 public:
-    static quint64 sliceSizeFromCount(int& count, quint64 multiple, const SrcFileList& files, int fileCount, int moveDir = 0);
-    static int sliceCountFromSize(quint64& size, quint64 multiple, const SrcFileList& files, int fileCount);
-    static int maxSliceCount(quint64 multiple, const SrcFileList& files);
+    static quint64 sliceSizeFromCount(int& count, quint64 multiple, int limit, const SrcFileList& files, int fileCount, int moveDir = 0);
+    static int sliceCountFromSize(quint64& size, quint64 multiple, int limit, const SrcFileList& files, int fileCount);
+    static int maxSliceCount(quint64 multiple, int limit, const SrcFileList& files);
 
     static int round_down_pow2(int v);
 };

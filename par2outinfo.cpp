@@ -152,7 +152,7 @@ Par2RecoveryFile Par2OutInfo::makeRecFile(int sliceCount, int sliceOffset)
     quint64 recvSize = 68 + win->par2SliceSize;
 
     if(1 /*pow2 repetition*/ && sliceCount) {
-        int critCopies = static_cast<int>(log(static_cast<double>(sliceCount)) / log(2.0));
+        int critCopies = static_cast<int>(round(log(static_cast<double>(sliceCount)) / log(2.0)));
         if(critCopies < 1) critCopies = 1;
         critTotalSize *= critCopies;
     }
@@ -177,4 +177,18 @@ QString Par2OutInfo::fileExt(int numSlices, int sliceOffset, int totalSlices)
                 .arg(sliceOffset, digits, 10, QChar('0'))
                 .arg(numSlices, digits, 10, QChar('0'));
     }
+}
+
+QString Par2OutInfo::nameSafeLen(QString name)
+{
+    // allocate enough space in the name for PAR2 extension (and our uniquifier)
+    // assume a max of 255 bytes allowed for a filename, so if the byte length exceeds 235, we'll need to shorten the name
+    auto name8 = (name + " - 2.vol12345+12345.par2").toLocal8Bit();
+    // the algorithm to shorten the string is somewhat dumb, but since we can't be too far above the max length, this shouldn't iterate too many times
+    while(name8.length() > 255) {
+        name.chop(1);
+        name8 = (name + " - 2.vol12345+12345.par2").toLocal8Bit();
+    }
+    return name;
+
 }

@@ -10,17 +10,17 @@ static int simpleCountFromSize(quint64 size, const SrcFileList& files)
     return count;
 }
 
-quint64 Par2Calc::sliceSizeFromCount(int& count, quint64 multiple, const SrcFileList& files, int fileCount, int moveDir)
+quint64 Par2Calc::sliceSizeFromCount(int& count, quint64 multiple, int limit, const SrcFileList& files, int fileCount, int moveDir)
 {
     if(files.isEmpty()) { // should never happen
         count = 0;
         return 0;
     }
-    if(fileCount > 32768) { // impossible to satisfy
+    if(fileCount > limit) { // impossible to satisfy
         return 0;
     }
-    if(count > 32768)
-        count = 32768;
+    if(count > limit)
+        count = limit;
 
     // from par2gen.js/calcSliceSizeForFiles:
     // there may be a better algorithm to do this, but we'll use a binary search approach to find the correct number of slices to use
@@ -58,7 +58,7 @@ quint64 Par2Calc::sliceSizeFromCount(int& count, quint64 multiple, const SrcFile
     if(uboundSlices == count)
         return ubound;
 
-    if(lboundSlices > 32768) {
+    if(lboundSlices > limit) {
         // higher slice count is invalid, must use lower count
         count = uboundSlices;
         return ubound;
@@ -87,7 +87,7 @@ quint64 Par2Calc::sliceSizeFromCount(int& count, quint64 multiple, const SrcFile
     }
 }
 
-int Par2Calc::sliceCountFromSize(quint64& size, quint64 multiple, const SrcFileList& files, int fileCount)
+int Par2Calc::sliceCountFromSize(quint64& size, quint64 multiple, int limit, const SrcFileList& files, int fileCount)
 {
     int mod = size % multiple;
     if(mod)
@@ -97,18 +97,18 @@ int Par2Calc::sliceCountFromSize(quint64& size, quint64 multiple, const SrcFileL
         size = 4;
 
     int count = simpleCountFromSize(size, files);
-    if(count > 32768) {
-        size = sliceSizeFromCount(count, multiple, files, fileCount);
+    if(count > limit) {
+        size = sliceSizeFromCount(count, multiple, limit, files, fileCount);
     }
     return count;
 }
 
-int Par2Calc::maxSliceCount(quint64 multiple, const SrcFileList& files)
+int Par2Calc::maxSliceCount(quint64 multiple, int limit, const SrcFileList& files)
 {
     int count = 0;
     for(const auto& file : files) {
         count += (file.size() + multiple-1) / multiple;
-        if(count > 32768) return 32768;
+        if(count > limit) return limit;
     }
     return count;
 }

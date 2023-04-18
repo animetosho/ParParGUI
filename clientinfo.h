@@ -1,26 +1,20 @@
 #ifndef CLIENTINFO_H
 #define CLIENTINFO_H
 
-#include <QProcess>
-#include <QTimer>
+#include "parparclient.h"
 
 class ClientInfo : public QObject
 {
     Q_OBJECT
 
     ClientInfo(QObject* parent = nullptr);
-    QProcess parpar;
-    QTimer timer;
-    bool isRunning;
+    ParParClient parpar;
     QString _version;
     QString _creator;
 
-private slots:
-    void finished(int exitCode, QProcess::ExitStatus exitStatus);
-
 signals:
     void updated();
-    void failed();
+    void failed(const QString& error);
 
 public:
     static ClientInfo& getInstance()

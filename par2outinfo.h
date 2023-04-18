@@ -26,6 +26,7 @@ public:
     QList<Par2RecoveryFile> getOutputList(int sliceCount, int distMode, int sliceLimit, int sliceOffset);
 
     static QString fileExt(int numSlices, int sliceOffset, int totalSlices);
+    static QString nameSafeLen(QString name);
 
 private:
     // state variables because stateless went out of fashion

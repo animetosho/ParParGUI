@@ -129,6 +129,7 @@ private:
 
 public: // grant access for SliceCountSpinBox / Par2OutInfo
     quint64 optionSliceMultiple;
+    int optionSliceLimit;
     SrcFileList par2SrcFiles;
     quint64 par2SrcSize; // cached value
     int par2FileCount;   // cached value
@@ -138,7 +139,7 @@ private:
     QString srcFilesCommonPath() const;
     void reloadSourceFiles();
 
-    QStringList getCmdArgs() const;
+    QStringList getCmdArgs(QHash<QString, QString>& env) const;
     QByteArray getCmdFilelist(bool nullSep) const;
     QList<Par2RecoveryFile> getOutputFiles();
 

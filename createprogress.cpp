@@ -3,6 +3,8 @@
 #include "settings.h"
 #include <QDir>
 #include <QMessageBox>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 #ifdef Q_OS_WINDOWS
 #define WIN32_LEAN_AND_MEAN
@@ -89,7 +91,7 @@ CreateProgress::CreateProgress(QWidget *parent) :
     // TODO: consider adding decimal percentage bar: https://www.qtcentre.org/threads/70885-QProgressBar-with-in-decimal?s=bdfd413197898978b8ef6ea933c3e67e&p=307578#post307578
 }
 
-void CreateProgress::run(QStringList args, const QByteArray& inFiles, const QString& baseOutput_, const QString& outDir_, const QStringList& outFiles_)
+void CreateProgress::run(QStringList args, const QHash<QString, QString>& env, const QByteArray& inFiles, const QString& baseOutput_, const QString& outDir_, const QStringList& outFiles_)
 {
     baseOutput = baseOutput_;
     outDir = outDir_;
@@ -100,8 +102,18 @@ void CreateProgress::run(QStringList args, const QByteArray& inFiles, const QStr
     if(cmd.length() > 1)
         args.prepend(cmd[1]);
 
-    args << "--quiet" << "--progress" << "stdout" << "--input-file0" << "-";
+    args << "--quiet" << "--json" << "--progress" << "stdout" << "--input-file0" << "-";
     parpar.setArguments(args);
+
+    if(!env.empty()) {
+        auto procEnv = QProcessEnvironment::systemEnvironment();
+        auto it = QHashIterator<QString, QString>(env);
+        while(it.hasNext()) {
+            it.next();
+            procEnv.insert(it.key(), it.value());
+        }
+        parpar.setProcessEnvironment(procEnv);
+    }
 
     this->setWindowTitle(tr("ParPar - Creating %2")
                          .arg(baseOutput));
@@ -109,8 +121,6 @@ void CreateProgress::run(QStringList args, const QByteArray& inFiles, const QStr
     // send stdin when process starts
     connect(&parpar, &QProcess::started, this, [=]() {
         ui->lblStatus->setText("");
-        ui->btnBackground->setEnabled(true);
-        ui->btnNotify->setEnabled(true);
         ui->btnPause->setEnabled(true);
 
         if(ui->btnBackground->isChecked())
@@ -142,36 +152,32 @@ void CreateProgress::run(QStringList args, const QByteArray& inFiles, const QStr
 
 void CreateProgress::gotStdout()
 {
-    stdoutBuffer += QString::fromUtf8(parpar.readAllStandardOutput());
+    stdoutBuffer.append(parpar.readAllStandardOutput());
 
-    // find last % and update display
-    int p = stdoutBuffer.lastIndexOf('%');
-    if(p > 0) {
-        // extract percentage
-        int i = p;
-        while(i--) {
-            auto c = stdoutBuffer.at(i);
-            if(c != '.' && !c.isDigit())
-                break;
+    // find end of JSON message
+    int p = stdoutBuffer.indexOf("\n}");
+    while(p > 0) {
+        // extract message
+        const auto doc = QJsonDocument::fromJson(stdoutBuffer.left(p + 2));
+        stdoutBuffer = stdoutBuffer.mid(p + 2);
+        p = stdoutBuffer.indexOf("\n}");
+
+        if(!doc.isNull() && !doc.isEmpty()) {
+            const auto msg = doc.object().toVariantHash();
+            const auto type = msg.value("type", "").toString();
+            if(type == "progress") {
+                bool ok;
+                float progress = msg.value("progress_percent", -1).toFloat(&ok);
+                if(progress >= 0 && ok) {
+                    ui->progressBar->setMaximum(10000);
+                    ui->progressBar->setValue(progress * 100);
+                    WIN_PROGRESS(SetProgressState, TBPF_NORMAL);
+                    WIN_PROGRESS(SetProgressValue, progress, 10000);
+
+                    updateTitlePerc();
+                }
+            }
         }
-        i++;
-        if(i == p) return; // got a % without a preceeding number
-
-        bool ok;
-#if QT_VERSION >= 0x060000
-        int progress = QStringView{stdoutBuffer}.mid(i, p-i).toFloat(&ok) * 100;
-#else
-        int progress = stdoutBuffer.midRef(i, p-i).toFloat(&ok) * 100;
-#endif
-        if(!ok) return; // why oh why???
-
-        ui->progressBar->setMaximum(10000);
-        ui->progressBar->setValue(progress);
-        WIN_PROGRESS(SetProgressState, TBPF_NORMAL);
-        WIN_PROGRESS(SetProgressValue, progress, 10000);
-
-        updateTitlePerc();
-        stdoutBuffer = stdoutBuffer.mid(p+1);
     }
 }
 
@@ -202,20 +208,22 @@ void CreateProgress::finished(int exitCode, QProcess::ExitStatus exitStatus)
     } else if(exitCode != 0) {
         ended(tr("PAR2 creation failed (exit code: %1)").arg(exitCode), true);
     } else {
-        ended("", false);
+        ended("", true);
     }
 }
 
 void CreateProgress::ended(const QString &error, bool showOutput)
 {
+    //gotStdout(); // flush remaining stdout
+
     bool success = error.isEmpty();
     ui->progressBar->setEnabled(false);
     ui->lblTime->setEnabled(false);
-    ui->btnBackground->setEnabled(false);
-    ui->btnNotify->setEnabled(false);
     ui->btnPause->setEnabled(false);
     if(success) {
         ui->lblStatus->setText(tr("PAR2 successfully created"));
+        ui->progressBar->setMaximum(10000);
+        ui->progressBar->setValue(10000);
         this->setWindowTitle(tr("ParPar - Finished creating %1").arg(baseOutput));
         WIN_PROGRESS(SetProgressState, TBPF_NOPROGRESS);
     } else {
@@ -246,9 +254,11 @@ void CreateProgress::ended(const QString &error, bool showOutput)
 
     if(isCancelled) return;
 
+    bool hasOutput = false;
     if(showOutput) {
         auto output = QString::fromUtf8(parpar.readAllStandardError()).trimmed();
         if(!output.isEmpty()) {
+            hasOutput = true;
             ui->txtMessage->setPlainText(output);
             ui->txtMessage->show();
 
@@ -257,6 +267,9 @@ void CreateProgress::ended(const QString &error, bool showOutput)
             this->resize(this->width(), this->layout()->sizeHint().height());
 
             this->setSizeGripEnabled(true);
+
+            if(success)
+                ui->lblStatus->setText(tr("PAR2 created with warnings"));
         }
     }
 
@@ -272,6 +285,9 @@ void CreateProgress::ended(const QString &error, bool showOutput)
         }
         QApplication::alert(this);
     }
+
+    if(!hasOutput && success && Settings::getInstance().runClose())
+        this->close();
 }
 
 void CreateProgress::deleteOutput()
@@ -308,6 +324,9 @@ void CreateProgress::on_CreateProgress_rejected()
         ended(tr("Cancelled"), false);
         parpar.waitForFinished(1000); // try to avoid warning of destroying QProcess whilst still active
         deleteOutput();
+
+        if(Settings::getInstance().runClose())
+            this->close();
     }
 }
 
@@ -316,61 +335,63 @@ void CreateProgress::on_btnBackground_clicked()
 {
     bool isBackground = ui->btnBackground->isChecked();
 
+    if(parpar.state() == QProcess::Running) {
 #ifdef Q_OS_WINDOWS
-    static DWORD normPrio = 0x7fff;
-    HANDLE hPP = OpenProcess(PROCESS_SET_INFORMATION | PROCESS_QUERY_LIMITED_INFORMATION, FALSE, parpar.processId());
-    if(hPP == NULL) {
-        ui->btnBackground->setEnabled(false);
-        ui->btnBackground->setChecked(!isBackground);
-        return;
-    }
-    if(normPrio == 0x7fff) {
-        normPrio = GetPriorityClass(hPP);
-        if(!normPrio) {
-            // failed to retrieve, disable option
+        static DWORD normPrio = 0x7fff;
+        HANDLE hPP = OpenProcess(PROCESS_SET_INFORMATION | PROCESS_QUERY_LIMITED_INFORMATION, FALSE, parpar.processId());
+        if(hPP == NULL) {
             ui->btnBackground->setEnabled(false);
-            ui->btnBackground->setChecked(false);
-            CloseHandle(hPP);
+            ui->btnBackground->setChecked(!isBackground);
             return;
         }
-        if(normPrio == IDLE_PRIORITY_CLASS) {
-            // already at low priority
-            ui->btnBackground->setEnabled(false);
-            ui->btnBackground->setChecked(true);
-            CloseHandle(hPP);
-            return;
+        if(normPrio == 0x7fff) {
+            normPrio = GetPriorityClass(hPP);
+            if(!normPrio) {
+                // failed to retrieve, disable option
+                ui->btnBackground->setEnabled(false);
+                ui->btnBackground->setChecked(false);
+                CloseHandle(hPP);
+                return;
+            }
+            if(normPrio == IDLE_PRIORITY_CLASS) {
+                // already at low priority
+                ui->btnBackground->setEnabled(false);
+                ui->btnBackground->setChecked(true);
+                CloseHandle(hPP);
+                return;
+            }
         }
-    }
-    if(!SetPriorityClass(hPP, isBackground ? IDLE_PRIORITY_CLASS : normPrio)) {
-        ui->btnBackground->setChecked(!isBackground);
-    }
-    CloseHandle(hPP);
+        if(!SetPriorityClass(hPP, isBackground ? IDLE_PRIORITY_CLASS : normPrio)) {
+            ui->btnBackground->setChecked(!isBackground);
+        }
+        CloseHandle(hPP);
 #elif defined(Q_OS_UNIX)
-    static int normPrio = 0x7fff;
-    if(normPrio == 0x7fff) {
-        // get the normal priority level (assume we start there)
-        errno = 0;
-        normPrio = getpriority(PRIO_PROCESS, parpar.processId());
-        if(normPrio == -1 && errno) {
-            // failed to retrieve, disable option
-            ui->btnBackground->setEnabled(false);
-            ui->btnBackground->setChecked(false);
-            return;
+        static int normPrio = 0x7fff;
+        if(normPrio == 0x7fff) {
+            // get the normal priority level (assume we start there)
+            errno = 0;
+            normPrio = getpriority(PRIO_PROCESS, parpar.processId());
+            if(normPrio == -1 && errno) {
+                // failed to retrieve, disable option
+                ui->btnBackground->setEnabled(false);
+                ui->btnBackground->setChecked(false);
+                return;
+            }
+            if(normPrio >= 19) {
+                // already at low priority
+                ui->btnBackground->setEnabled(false);
+                ui->btnBackground->setChecked(true);
+                return;
+            }
         }
-        if(normPrio >= 19) {
-            // already at low priority
-            ui->btnBackground->setEnabled(false);
-            ui->btnBackground->setChecked(true);
-            return;
-        }
-    }
 
-    if(setpriority(PRIO_PROCESS, parpar.processId(), isBackground ? 19 : normPrio)) {
-        ui->btnBackground->setChecked(!isBackground);
-        // TODO: it seems like you can't increase priority back to normal on Linux
-        // TODO: if failed, the settings change is still persisted
-    }
+        if(setpriority(PRIO_PROCESS, parpar.processId(), isBackground ? 19 : normPrio)) {
+            ui->btnBackground->setChecked(!isBackground);
+            // TODO: it seems like you can't increase priority back to normal on Linux
+            // TODO: if failed, the settings change is still persisted
+        }
 #endif
+    }
 
     Settings::getInstance().setRunBackground(isBackground);
 }

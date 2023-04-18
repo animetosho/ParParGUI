@@ -84,9 +84,6 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="btnBackground">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
        <property name="toolTip">
         <string>Run at a lower priority to reduce impact on system processor</string>
        </property>
@@ -100,9 +97,6 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnNotify">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
        <property name="toolTip">
         <string>Emit a notification once the process completes</string>
        </property>

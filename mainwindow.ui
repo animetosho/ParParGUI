@@ -54,7 +54,7 @@
          <x>0</x>
          <y>0</y>
          <width>578</width>
-         <height>599</height>
+         <height>605</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">
@@ -175,6 +175,9 @@
                    <height>16777215</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select files that will comprise the &lt;span style=&quot; font-style:italic;&quot;&gt;source data&lt;/span&gt; to protect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="text">
                   <string>Select &amp;Files...</string>
                  </property>
@@ -193,6 +196,9 @@
                    <width>120</width>
                    <height>16777215</height>
                   </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select a folder, containing files that will comprise the &lt;span style=&quot; font-style:italic;&quot;&gt;source data&lt;/span&gt; to protect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text">
                   <string>Select Fol&amp;der...</string>
@@ -283,6 +289,9 @@
                       <height>16777215</height>
                      </size>
                     </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add one or more files to list of source files&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
                     <property name="text">
                      <string>Add &amp;Files...</string>
                     </property>
@@ -301,6 +310,9 @@
                       <width>120</width>
                       <height>16777215</height>
                      </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add all files within a folder to list of source files&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>Add Fol&amp;der...</string>
@@ -321,6 +333,9 @@
                       <height>16777215</height>
                      </size>
                     </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove selected files from the list of source files&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
                     <property name="text">
                      <string>Re&amp;move</string>
                     </property>
@@ -339,6 +354,9 @@
                       <width>120</width>
                       <height>16777215</height>
                      </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Refresh metadata in the source files list&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>Refresh &amp;List</string>
@@ -456,6 +474,9 @@
                         <height>16777215</height>
                        </size>
                       </property>
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How path names should be stored in the PAR2 output&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
                       <property name="currentIndex">
                        <number>1</number>
                       </property>
@@ -507,7 +528,11 @@
                   <item row="1" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_7">
                     <item>
-                     <widget class="QLineEdit" name="txtSourcePath"/>
+                     <widget class="QLineEdit" name="txtSourcePath">
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Base path used for &lt;span style=&quot; font-style:italic;&quot;&gt;Relative path names&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
                     </item>
                     <item>
                      <widget class="QPushButton" name="btnSourcePathBrowse">
@@ -559,6 +584,9 @@
              <widget class="QGroupBox" name="grpSrcData">
               <property name="enabled">
                <bool>false</bool>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Each source/input file needs to be divided into equal-sized &lt;span style=&quot; font-style:italic;&quot;&gt;slices&lt;/span&gt; (aka &lt;span style=&quot; font-style:italic;&quot;&gt;blocks&lt;/span&gt;).&lt;/p&gt;&lt;p&gt;Recovery works by determining which slices are present and valid in the available files. Any corruption renders the corresponding slice to be missing.&lt;/p&gt;&lt;p&gt;Smaller slices usually improve recovery efficiency, as each missing slice affects less overall data, but is slower to compute.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Example&lt;/span&gt;: a file is divided into 200K slices. A single byte is corrupted, resulting in the corresponding 200K slice to be considered missing. This means that at least 200K of recovery data is needed to repair this file.&lt;br/&gt;If the file was divided into 100K slices instead, only 100K of recovery data would be needed to repair the single byte corruption, but this would take roughly twice a long to compute.&lt;/p&gt;&lt;p&gt;Note that if a file's size is not an exact multiple of the slice size, it is padded to ensure the file has a whole number of slices.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="title">
                <string>Source Data</string>
@@ -625,6 +653,20 @@
                  </property>
                 </widget>
                </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Wasted padding</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLabel" name="lblInslicePadding">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -632,6 +674,9 @@
              <widget class="QGroupBox" name="grpRecData">
               <property name="enabled">
                <bool>false</bool>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Recovery data is used to repair the source files if they become corrupt or missing.&lt;/p&gt;&lt;p&gt;The amount of recovery data generated governs how much data can be lost/corrupt before the source files become unrecoverable.&lt;br/&gt;In other words, more recovery data improves the likelihood of repair, at the expense of recovery files being larger and computation taking longer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="title">
                <string>Recovery Data</string>
@@ -696,6 +741,9 @@
                  <property name="maximum">
                   <number>65535</number>
                  </property>
+                 <property name="value">
+                  <number>100</number>
+                 </property>
                 </widget>
                </item>
                <item row="2" column="0">
@@ -720,7 +768,7 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string notr="true">10M</string>
+                  <string notr="true">100M</string>
                  </property>
                 </widget>
                </item>
@@ -735,6 +783,9 @@
              <horstretch>0</horstretch>
              <verstretch>50</verstretch>
             </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Recovery data is written out as one or more PAR2 files, which consists of an index file with zero or more recovery volume files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="title">
             <string>Recovery/Output Files</string>
@@ -764,7 +815,11 @@
               <item row="0" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
                 <item>
-                 <widget class="QLineEdit" name="txtDestFile"/>
+                 <widget class="QLineEdit" name="txtDestFile">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The PAR2 &lt;span style=&quot; font-style:italic;&quot;&gt;index&lt;/span&gt; (or &lt;span style=&quot; font-style:italic;&quot;&gt;base&lt;/span&gt;) file that will be generated&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="btnDestFileBrowse">
@@ -803,6 +858,9 @@
                     <width>250</width>
                     <height>16777215</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How recovery slices should be spread across recovery volumes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="currentIndex">
                    <number>2</number>
@@ -881,6 +939,9 @@
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The index of the first recovery slice generated.&lt;/p&gt;&lt;p&gt;This option is mostly useful if you already have a PAR2 set for the source data, and wish to add more recovery data to that set.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="maximum">
                    <number>65534</number>
                   </property>
@@ -911,7 +972,7 @@
                   <bool>false</bool>
                  </property>
                  <property name="currentIndex">
-                  <number>0</number>
+                  <number>2</number>
                  </property>
                  <widget class="QWidget" name="page_3">
                   <layout class="QGridLayout" name="gridLayout_2">
@@ -1031,14 +1092,8 @@
                   </layout>
                  </widget>
                  <widget class="QWidget" name="page_2">
-                  <layout class="QVBoxLayout" name="verticalLayout_7">
-                   <property name="topMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>0</number>
-                   </property>
-                   <item>
+                  <layout class="QFormLayout" name="formLayout_3">
+                   <item row="0" column="0" colspan="2">
                     <widget class="QRadioButton" name="optDestMaxLfile">
                      <property name="text">
                       <string>Limit slices to largest source file</string>
@@ -1048,64 +1103,60 @@
                      </property>
                     </widget>
                    </item>
-                   <item>
-                    <layout class="QFormLayout" name="formLayout_3">
-                     <item row="0" column="0">
-                      <widget class="QRadioButton" name="optDestMaxCount">
-                       <property name="text">
-                        <string>Max slices per file</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QSpinBox" name="txtDestMaxCount">
-                       <property name="minimumSize">
-                        <size>
-                         <width>60</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>80</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="minimum">
-                        <number>1</number>
-                       </property>
-                       <property name="maximum">
-                        <number>32768</number>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QRadioButton" name="optDestMaxSize">
-                       <property name="text">
-                        <string>Max file size</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="SizeEdit" name="txtDestMaxSize">
-                       <property name="minimumSize">
-                        <size>
-                         <width>60</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>80</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string notr="true">10M</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
+                   <item row="1" column="0">
+                    <widget class="QRadioButton" name="optDestMaxCount">
+                     <property name="text">
+                      <string>Max slices per file</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QRadioButton" name="optDestMaxSize">
+                     <property name="text">
+                      <string>Max file size</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="SizeEdit" name="txtDestMaxSize">
+                     <property name="minimumSize">
+                      <size>
+                       <width>60</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>80</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string notr="true">10M</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QSpinBox" name="txtDestMaxCount">
+                     <property name="minimumSize">
+                      <size>
+                       <width>60</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>80</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
+                     <property name="maximum">
+                      <number>32768</number>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
@@ -1174,6 +1225,9 @@
                         <height>16777215</height>
                        </size>
                       </property>
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a comment to the generated PAR2 file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
                       <property name="text">
                        <string>Set Comme&amp;nt...</string>
                       </property>
@@ -1192,6 +1246,9 @@
                         <width>140</width>
                         <height>16777215</height>
                        </size>
+                      </property>
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display what PAR2 files will be generated&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="text">
                        <string>Previe&amp;w Output</string>
@@ -1236,7 +1293,7 @@
                <bool>true</bool>
               </property>
               <property name="columnCount">
-               <number>3</number>
+               <number>4</number>
               </property>
               <column>
                <property name="text">
@@ -1254,6 +1311,14 @@
               <column>
                <property name="text">
                 <string>Slice Count</string>
+               </property>
+               <property name="textAlignment">
+                <set>AlignTrailing|AlignVCenter</set>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Efficiency</string>
                </property>
                <property name="textAlignment">
                 <set>AlignTrailing|AlignVCenter</set>
@@ -1375,6 +1440,9 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copy the ParPar command that will be executed when &lt;span style=&quot; font-style:italic;&quot;&gt;Create&lt;/span&gt; is clicked.&lt;/p&gt;&lt;p&gt;This is useful if you wish to run ParPar manually from the command line.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Cop&amp;y Command</string>
         </property>
@@ -1420,11 +1488,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SliceCountSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>slicecountspinbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>SizeEdit</class>
    <extends>QLineEdit</extends>
    <header>sizeedit.h</header>
@@ -1434,12 +1497,64 @@
    </slots>
   </customwidget>
   <customwidget>
+   <class>SliceCountSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>slicecountspinbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>SourceFileFrame</class>
    <extends>QStackedWidget</extends>
    <header>sourcefileframe.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>btnSourceSetFiles</tabstop>
+  <tabstop>btnSourceSetDir</tabstop>
+  <tabstop>btnSourceAdv</tabstop>
+  <tabstop>btnSourceAdd</tabstop>
+  <tabstop>btnSourceAddDir</tabstop>
+  <tabstop>btnSourceDel</tabstop>
+  <tabstop>btnSourceRefresh</tabstop>
+  <tabstop>btnSourceAdv2</tabstop>
+  <tabstop>tvSource</tabstop>
+  <tabstop>cboSourcePaths</tabstop>
+  <tabstop>txtSourcePath</tabstop>
+  <tabstop>btnSourcePathBrowse</tabstop>
+  <tabstop>optInsliceSize</tabstop>
+  <tabstop>txtInsliceSize</tabstop>
+  <tabstop>optInsliceCount</tabstop>
+  <tabstop>txtInsliceCount</tabstop>
+  <tabstop>optOutsliceRatio</tabstop>
+  <tabstop>txtOutsliceRatio</tabstop>
+  <tabstop>optOutsliceCount</tabstop>
+  <tabstop>txtOutsliceCount</tabstop>
+  <tabstop>optOutsliceSize</tabstop>
+  <tabstop>txtOutsliceSize</tabstop>
+  <tabstop>txtDestFile</tabstop>
+  <tabstop>btnDestFileBrowse</tabstop>
+  <tabstop>cboDestDist</tabstop>
+  <tabstop>txtDestOffset</tabstop>
+  <tabstop>optDestFiles</tabstop>
+  <tabstop>txtDestFiles</tabstop>
+  <tabstop>optDestCount</tabstop>
+  <tabstop>txtDestCount</tabstop>
+  <tabstop>optDestSize</tabstop>
+  <tabstop>txtDestSize</tabstop>
+  <tabstop>optDestMaxLfile</tabstop>
+  <tabstop>optDestMaxCount</tabstop>
+  <tabstop>txtDestMaxCount</tabstop>
+  <tabstop>optDestMaxSize</tabstop>
+  <tabstop>txtDestMaxSize</tabstop>
+  <tabstop>btnComment</tabstop>
+  <tabstop>btnDestPreview</tabstop>
+  <tabstop>tvDest</tabstop>
+  <tabstop>btnAbout</tabstop>
+  <tabstop>btnOptions</tabstop>
+  <tabstop>btnCopyCmd</tabstop>
+  <tabstop>btnCreate</tabstop>
+ </tabstops>
  <resources>
   <include location="res.qrc"/>
  </resources>

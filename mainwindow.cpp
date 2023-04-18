@@ -43,6 +43,54 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tvSource->sortByColumn(0, Qt::SortOrder::AscendingOrder);
     ui->tvDest->sortByColumn(0, Qt::SortOrder::AscendingOrder);
 
+    ui->txtInsliceSize->blockSignals(true);
+    ui->txtInsliceSize->setText(settings.allocSliceSize());
+    ui->txtInsliceSize->blockSignals(false);
+    ui->txtInsliceCount->blockSignals(true);
+    ui->txtInsliceCount->setValue(settings.allocSliceCount());
+    ui->txtInsliceCount->blockSignals(false);
+    switch(settings.allocSliceMode()) {
+    case SettingsDefaultAllocIn::ALLOC_IN_SIZE:
+        ui->optInsliceSize->blockSignals(true);
+        ui->optInsliceSize->setChecked(true);
+        ui->optInsliceSize->blockSignals(false);
+        break;
+    case SettingsDefaultAllocIn::ALLOC_IN_COUNT:
+        ui->optInsliceCount->blockSignals(true);
+        ui->optInsliceCount->setChecked(true);
+        ui->optInsliceCount->blockSignals(false);
+        break;
+    case SettingsDefaultAllocIn::ALLOC_IN_RATIO:
+        // handle later
+        break;
+    }
+
+    ui->txtOutsliceRatio->blockSignals(true);
+    ui->txtOutsliceRatio->setValue(settings.allocRecoveryRatio());
+    ui->txtOutsliceRatio->blockSignals(false);
+    ui->txtOutsliceCount->blockSignals(true);
+    ui->txtOutsliceCount->setValue(settings.allocRecoveryCount());
+    ui->txtOutsliceCount->blockSignals(false);
+    ui->txtOutsliceSize->blockSignals(true);
+    ui->txtOutsliceSize->setText(settings.allocRecoverySize());
+    ui->txtOutsliceSize->blockSignals(false);
+    switch(settings.allocRecoveryMode()) {
+    case SettingsDefaultAllocRec::ALLOC_REC_RATIO:
+        ui->optOutsliceRatio->blockSignals(true);
+        ui->optOutsliceRatio->setChecked(true);
+        ui->optOutsliceRatio->blockSignals(false);
+        break;
+    case SettingsDefaultAllocRec::ALLOC_REC_COUNT:
+        ui->optOutsliceCount->blockSignals(true);
+        ui->optOutsliceCount->setChecked(true);
+        ui->optOutsliceCount->blockSignals(false);
+        break;
+    case SettingsDefaultAllocRec::ALLOC_REC_SIZE:
+        ui->optOutsliceSize->blockSignals(true);
+        ui->optOutsliceSize->setChecked(true);
+        ui->optOutsliceSize->blockSignals(false);
+        break;
+    }
 
     par2SrcSize = 0;
     par2FileCount = 0;
@@ -51,8 +99,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     auto& clientInfo = ClientInfo::getInstance();
-    connect(&clientInfo, &ClientInfo::failed, this, [=]() {
-        QMessageBox::warning(this, tr("ParPar Execute Failed"), tr("Failed to retrieve information from ParPar client. Please ensure that ParPar is available, executable and/or configured in the Options dialog."));
+    connect(&clientInfo, &ClientInfo::failed, this, [=](const QString& error) {
+        QMessageBox::warning(this, tr("ParPar Execute Failed"), tr("Failed to retrieve information from ParPar client. Please ensure that ParPar is available, executable and/or configured in the Options dialog.\n\nDetail: %1").arg(error));
     });
     connect(&clientInfo, &ClientInfo::updated, this, [=]() {
         // mostly because the creator could've changed
@@ -60,12 +108,20 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     this->optionSliceMultiple = 4;
+    this->optionSliceLimit = settings.sliceLimit();
     auto updateMultiple = [=](bool binaryChanged) {
-        quint64 newMultiple = sizeToBytes(Settings::getInstance().sliceMultiple());
+        const auto& settings = Settings::getInstance();
+        quint64 newMultiple = sizeToBytes(settings.sliceMultiple());
         if(!newMultiple) newMultiple = 4;
         else if(newMultiple & 3) // invalid multiple - can't be used
             newMultiple = 4;
-        if(this->optionSliceMultiple != newMultiple) {
+        if(this->optionSliceLimit != settings.sliceLimit()) {
+            this->optionSliceLimit = settings.sliceLimit();
+            this->optionSliceMultiple = newMultiple;
+            this->updateInsliceInfo();
+            this->checkSourceFileCount(tr("Change slice limit"));
+        }
+        else if(this->optionSliceMultiple != newMultiple) {
             this->optionSliceMultiple = newMultiple;
             this->updateInsliceInfo();
         }
@@ -96,26 +152,31 @@ void MainWindow::rescale() {
 
     w = ui->tvDest->width();
     ui->tvDest->header()->setUpdatesEnabled(false);
-    ui->tvDest->header()->resizeSection(0, w>250 ? w-170 : 80);
+    ui->tvDest->header()->resizeSection(0, w>320 ? w-240 : 80);
     ui->tvDest->header()->resizeSection(1, 80);
     ui->tvDest->header()->resizeSection(2, 70);
+    ui->tvDest->header()->resizeSection(3, 70);
     ui->tvDest->header()->setUpdatesEnabled(true);
 }
 
 void MainWindow::adjustExpansion(bool allowExpand) {
     bool inExp = ui->stkSource->currentIndex() == 1;
     bool outExp = ui->btnDestPreview->isChecked();
+    ui->splitter->setUpdatesEnabled(false);
     for(int i=0; i<ui->splitter->count(); i++)
         ui->splitter->handle(i)->setEnabled(inExp && outExp);
+    ui->splitter->setUpdatesEnabled(true);
 
     ui->tvDest->setVisible(outExp);
     ui->btnDestPreview->setArrowType(outExp ? Qt::UpArrow : Qt::DownArrow);
+    ui->stkSource->setUpdatesEnabled(false);
     if(inExp) {
         ui->stkSource->setMinimumHeight(ui->stkSourceAdv->minimumHeight());
         ui->stkSource->setMaximumHeight(ui->stkSourceAdv->maximumHeight());
     } else {
         ui->stkSource->setFixedHeight(ui->stkSourceBasic->layout()->sizeHint().height());
     }
+    ui->stkSource->setUpdatesEnabled(true);
 
     ui->stkDestSizing->setFixedHeight(ui->stkDestSizing->currentWidget()->layout()->sizeHint().height());
 
@@ -125,9 +186,12 @@ void MainWindow::adjustExpansion(bool allowExpand) {
 
     auto destPolicy = ui->grpDest->sizePolicy();
     destPolicy.setVerticalPolicy(outExp ? QSizePolicy::Expanding : QSizePolicy::Maximum);
+    ui->grpDest->setUpdatesEnabled(false);
     ui->grpDest->setSizePolicy(destPolicy);
     ui->grpDest->adjustSize();
+    ui->grpDest->setUpdatesEnabled(true);
 
+    this->setUpdatesEnabled(false);
     if(inExp || outExp) {
         this->setMaximumHeight(16777215);
         ui->scrollArea->setMaximumHeight(16777215);
@@ -163,6 +227,7 @@ void MainWindow::adjustExpansion(bool allowExpand) {
             this->setFixedHeight(scrollHeight + ui->lytBottomButtons->sizeHint().height());
     }
     this->setMinimumWidth(575); // for some reason, this can get lost?
+    this->setUpdatesEnabled(true);
 }
 
 void MainWindow::showEvent(QShowEvent *event) {
@@ -231,7 +296,7 @@ void MainWindow::on_txtInsliceCount_valueChanged(int value)
     ui->optInsliceCount->blockSignals(true);
     ui->optInsliceCount->setChecked(true);
     ui->optInsliceCount->blockSignals(false);
-    par2SliceSize = Par2Calc::sliceSizeFromCount(value, optionSliceMultiple, par2SrcFiles, par2FileCount);
+    par2SliceSize = Par2Calc::sliceSizeFromCount(value, optionSliceMultiple, optionSliceLimit, par2SrcFiles, par2FileCount);
     ui->txtInsliceSize->setBytesApprox(par2SliceSize, true);
 
     updateOutsliceInfo(false);
@@ -241,7 +306,7 @@ void MainWindow::on_txtInsliceCount_editingFinished()
     if(!ui->optInsliceCount->isChecked()) return;
 
     int newValue = ui->txtInsliceCount->value();
-    par2SliceSize = Par2Calc::sliceSizeFromCount(newValue, optionSliceMultiple, par2SrcFiles, par2FileCount);
+    par2SliceSize = Par2Calc::sliceSizeFromCount(newValue, optionSliceMultiple, optionSliceLimit, par2SrcFiles, par2FileCount);
     if(newValue != ui->txtInsliceCount->value()) {
         ui->txtInsliceCount->blockSignals(true);
         ui->txtInsliceCount->setValue(newValue);
@@ -314,6 +379,11 @@ void MainWindow::on_btnSourceDel_clicked()
     }
     ui->tvSource->setUpdatesEnabled(true);
     updateSrcFilesState();
+    if(par2SrcFiles.isEmpty()) {
+        // assume we're starting afresh
+        srcBaseChosen = false;
+        destFileChosen = false;
+    }
 }
 
 static void recurseAddDir(const QDir& dir, SrcFileList& dest, ProgressDialog& progress)
@@ -443,7 +513,7 @@ void MainWindow::on_txtInsliceSize_valueChanged(quint64 size, bool finished)
     }
 
     par2SliceSize = size;
-    int count = Par2Calc::sliceCountFromSize(par2SliceSize, optionSliceMultiple, par2SrcFiles, par2FileCount);
+    int count = Par2Calc::sliceCountFromSize(par2SliceSize, optionSliceMultiple, optionSliceLimit, par2SrcFiles, par2FileCount);
     if(finished && size != par2SliceSize) {
         ui->txtInsliceSize->setBytes(par2SliceSize);
     }
@@ -600,6 +670,7 @@ void MainWindow::on_btnComment_clicked()
         }
 #endif
         updateDestPreview();
+        ui->btnComment->setText(par2Comment.isEmpty() ? tr("Set Comme&nt...") : tr("Edit Comme&nt..."));
     }
 }
 
@@ -663,6 +734,8 @@ void MainWindow::reloadSourceFiles()
 {
     int pathOpt = ui->cboSourcePaths->currentIndex();
     auto tv = ui->tvSource;
+    par2SrcSize = 0;
+    par2FileCount = 0;
     if(par2SrcFiles.isEmpty()) {
         tv->clear();
         return;
@@ -675,8 +748,6 @@ void MainWindow::reloadSourceFiles()
     progress.setCancelButton(nullptr);
     // TODO: also disable window close button
 
-    par2SrcSize = 0;
-    par2FileCount = 0;
     if(pathOpt == 0) {
         // add without pathing
         QList<QTreeWidgetItem*> items;
@@ -784,7 +855,7 @@ static QString wrapFile(const QString& val)
     return val;
 }
 
-QStringList MainWindow::getCmdArgs() const
+QStringList MainWindow::getCmdArgs(QHash<QString, QString>& env) const
 {
     QStringList list;
     // slice sizing
@@ -846,16 +917,29 @@ QStringList MainWindow::getCmdArgs() const
         list << (settings.unicode() == INCLUDE ? "--unicode" : "--no-unicode");
     if(settings.charset() != "utf8")
         list << "--ascii-charset" << settings.charset();
+    if(settings.packetRepMin() != 1)
+        list << "--min-packet-redundancy" << QString::number(settings.packetRepMin());
+    if(settings.packetRepMax() != 16 && settings.packetRepMin() < 16)
+        list << "--max-packet-redundancy" << QString::number(settings.packetRepMax());
     if(settings.stdNaming())
         list << "--std-naming";
     // TODO: should we include the slice size multiple?
+
+    if(settings.outputSync())
+        list << "--write-sync";
 
     list << "--seq-read-size" << settings.readSize()
          << "--read-buffers" << QString::number(settings.readBuffers())
          << "--read-hash-queue" << QString::number(settings.hashQueue())
          << "--min-chunk-size" << settings.minChunk()
+         << "--chunk-read-threads" << QString::number(settings.chunkReadThreads())
          << "--recovery-buffers" << QString::number(settings.recBuffers())
-         << "--hash-batch-size" << QString::number(settings.hashBatch());
+         << "--md5-batch-size" << QString::number(settings.hashBatch())
+         << "--cpu-minchunk" << settings.cpuMinChunk();
+    if(settings.hashMethod() != "auto")
+        list << "--hash-method" << settings.hashMethod();
+    if(settings.md5Method() != "auto")
+        list << "--md5-method" << settings.md5Method();
     if(settings.procBatch() >= 0)
         list << "--proc-batch-size" << QString::number(settings.procBatch());
     if(!settings.memLimit().isEmpty())
@@ -867,6 +951,26 @@ QStringList MainWindow::getCmdArgs() const
     if(settings.threadNum() >= 0)
         list << "--threads" << QString::number(settings.threadNum());
 
+    const auto openclDevices = settings.openclDevices();
+    for(const auto& dev : openclDevices) {
+        QString devLine("device=%1,process=%2,minchunk=%3,method=%4");
+        QString devName(dev.name);
+        devName.remove(',');
+        devLine = devLine.arg(devName, QString::number(dev.alloc) + "%", dev.minChunk, dev.gfMethod);
+        if(!dev.memLimit.isEmpty())
+            devLine += QString(",memory=") + dev.memLimit;
+        if(dev.batch)
+            devLine += QString(",batch-size=") + QString::number(dev.batch);
+        if(dev.iters)
+            devLine += QString(",iter-count=") + QString::number(dev.iters);
+        if(dev.outputs)
+            devLine += QString(",grouping=") + QString::number(dev.outputs);
+        list << "--opencl" << devLine;
+    }
+
+    if(settings.chunkReadThreads() >= 3)
+        env.insert("UV_THREADPOOL_SIZE", QString::number(settings.chunkReadThreads()+2));
+
     return list;
 }
 QByteArray MainWindow::getCmdFilelist(bool nullSep) const
@@ -877,7 +981,7 @@ QByteArray MainWindow::getCmdFilelist(bool nullSep) const
     while(it.hasNext()) {
         it.next();
         auto file = it.value().canonicalFilePath();
-        fileList.append(file.replace("/", QDir::separator()).toUtf8());
+        fileList.append(file.replace("/", QDir::separator()).toUtf8()); // TODO: do we want to support UCS2 in case of badly encoded filenames? does that even work in Qt?
         if(nullSep)
             fileList.append(static_cast<char>(0));
         else
@@ -1044,7 +1148,8 @@ void MainWindow::on_btnCopyCmd_clicked()
 {
     QString cmd = Settings::getInstance().parparBin().join(" ");
 
-    auto args = getCmdArgs();
+    QHash<QString, QString> env;
+    auto args = getCmdArgs(env);
     for(const auto& arg : args)
         cmd += QString(" ") + escapeShellArg(arg);
 
@@ -1055,6 +1160,20 @@ void MainWindow::on_btnCopyCmd_clicked()
         it.next();
         auto file = it.value().canonicalFilePath();
         fileList += QString(" ") + escapeShellArg(file.replace("/", QDir::separator()));
+    }
+
+    if(!env.empty()) {
+        auto it = QHashIterator<QString, QString>(env);
+        QString envStr = "";
+        while(it.hasNext()) {
+            it.next();
+#ifdef Q_OS_WINDOWS
+            envStr += QString("SET %1=%2\r\n").arg(it.key(), it.value());
+#else
+            envStr += it.key() + "=" + escapeShellArg(it.value()) + " ";
+#endif
+        }
+        cmd = envStr + cmd;
     }
 
 #ifdef Q_OS_WINDOWS
@@ -1139,6 +1258,7 @@ void MainWindow::on_btnCreate_clicked()
     outputFilenames.reserve(outputFiles.count());
     // check if any file would be overwritten
     QString exists;
+    bool tooLong = false;
     QDir outputDir = output.dir();
     for(const auto& outFile : outputFiles) {
         QString name = outputBaseName + Par2OutInfo::fileExt(outFile.count, outFile.offset, sliceCount);
@@ -1148,6 +1268,18 @@ void MainWindow::on_btnCreate_clicked()
             exists += QString("\n") + name;
         }
         outputFilenames.append(name);
+
+        // assume Windows allows 255 UCS2 chars, otherwise 255 bytes, in the file name
+#ifdef _WINDOWS
+        if(name.length() > 255)
+#else
+        if(name.toLocal8Bit().length() > 255)
+#endif
+            tooLong = true;
+    }
+    if(tooLong) {
+        QMessageBox::warning(this, tr("Create PAR2"), tr("One or more output file names are too long. Please shorten the output file name."));
+        return;
     }
     if(!exists.isEmpty()) {
         auto answer = QMessageBox::warning(this, tr("Create PAR2"), tr("The following output file(s) already exist. Do you want to overwrite them?%1")
@@ -1162,8 +1294,10 @@ void MainWindow::on_btnCreate_clicked()
     }
 
     // launch progress window
+    QHash<QString, QString> env;
+    auto args = getCmdArgs(env);
     CreateProgress w(this);
-    w.run(getCmdArgs(), getCmdFilelist(true), output.fileName(), output.absolutePath(), outputFilenames);
+    w.run(args, env, getCmdFilelist(true), output.fileName(), output.absolutePath(), outputFilenames);
     w.exec();
 }
 
@@ -1183,12 +1317,12 @@ void MainWindow::autoSelectDestFile()
     // if single file, use that name
     if(par2SrcFiles.size() == 1) {
         const auto& file = par2SrcFiles.cbegin().value();
-        target = QDir(file.canonicalPath()).absoluteFilePath(file.completeBaseName());
+        target = QDir(file.canonicalPath()).absoluteFilePath(Par2OutInfo::nameSafeLen(file.completeBaseName()));
     } else {
         // otherwise, use common path
         QDir dir(ui->txtSourcePath->text());
         if(dir.dirName().isEmpty()) return; // root directory - no name available
-        target = QDir(dir.canonicalPath()).absoluteFilePath(dir.dirName());
+        target = QDir(dir.canonicalPath()).absoluteFilePath(Par2OutInfo::nameSafeLen(dir.dirName()));
     }
 
     target.replace("/", QDir::separator());
@@ -1212,6 +1346,13 @@ bool MainWindow::checkSourceFileCount(const QString& title)
                              title.isEmpty() ? tr("Add source files") : title,
                              tr("PAR2 supports a maximum of 32768 (non-empty) files per archive. Currently, there are %1 files loaded. Please remove files to bring the count under the limit before proceeding.")
                              .arg(par2FileCount));
+        return false;
+    }
+    if(par2FileCount > optionSliceLimit) {
+        QMessageBox::warning(this,
+                             title.isEmpty() ? tr("Add source files") : title,
+                             tr("A slice count limit of %1 has been set, which is less than the %2 currently loaded files. Please remove files to bring the count under the limit before proceeding.")
+                             .arg(optionSliceLimit, par2FileCount));
         return false;
     }
     return true;
@@ -1261,7 +1402,7 @@ void MainWindow::on_optInsliceSize_toggled(bool checked)
     if(!checked) return;
 
     int value = ui->txtInsliceCount->value();
-    par2SliceSize = Par2Calc::sliceSizeFromCount(value, optionSliceMultiple, par2SrcFiles, par2FileCount);
+    par2SliceSize = Par2Calc::sliceSizeFromCount(value, optionSliceMultiple, optionSliceLimit, par2SrcFiles, par2FileCount);
     ui->txtInsliceSize->setBytes(par2SliceSize, true);
 }
 void MainWindow::on_optInsliceCount_toggled(bool checked)
@@ -1272,10 +1413,23 @@ void MainWindow::on_optInsliceCount_toggled(bool checked)
 }
 void MainWindow::updateInsliceInfo()
 {
+    if(par2FileCount < 1) return;
     ui->txtInsliceCount->blockSignals(true);
     ui->txtInsliceCount->setMinimum(par2FileCount);
-    ui->txtInsliceCount->setMaximum(Par2Calc::maxSliceCount(optionSliceMultiple, par2SrcFiles));
+    ui->txtInsliceCount->setMaximum(Par2Calc::maxSliceCount(optionSliceMultiple, optionSliceLimit, par2SrcFiles));
     ui->txtInsliceCount->blockSignals(false);
+
+    if(Settings::getInstance().allocSliceMode() == SettingsDefaultAllocIn::ALLOC_IN_RATIO) {
+        double _count = (double)par2SrcSize;
+        _count = sqrt(_count * Settings::getInstance().allocSliceRatio() / 100);
+        int count = (std::min)((int)round(_count), optionSliceLimit);
+        if(count < 1) count = 1;
+        ui->txtInsliceCount->setValue(count);
+        ui->optInsliceCount->setChecked(true);
+        on_txtInsliceCount_editingFinished();
+        return;
+    }
+
     if(ui->optInsliceCount->isChecked())
         on_txtInsliceCount_editingFinished();
     if(ui->optInsliceSize->isChecked())
@@ -1304,7 +1458,13 @@ void MainWindow::on_optOutsliceSize_toggled(bool checked)
 }
 void MainWindow::updateOutsliceInfo(bool setMax)
 {
-    double ratioMax = 6553500.0 / ui->txtInsliceCount->value();
+    int sliceCount = ui->txtInsliceCount->value();
+
+    // also updates the 'padding' info
+    quint64 padding = sliceCount * par2SliceSize - par2SrcSize;
+    ui->lblInslicePadding->setText(friendlySize(padding) + " (" + QLocale().toString((double)(padding * 100) / (par2SrcSize + padding), 'f', 2) + "%)");
+
+    double ratioMax = 6553500.0 / sliceCount;
     ui->txtOutsliceRatio->blockSignals(true);
     ui->txtOutsliceRatio->setMaximum(setMax ? ratioMax : 6553500.0);
     ui->txtOutsliceRatio->blockSignals(false);
@@ -1427,14 +1587,21 @@ void MainWindow::updateDestPreview()
 
     QList<QTreeWidgetItem*> items;
     items.reserve(files.size());
-    QStringList itemText{"", "", ""};
+    QStringList itemText{"", "", "", ""};
     if(distMode == 0)
         itemText[0] = fileName;
     else {
         itemText[0] = baseName;
         itemText[0].reserve(baseName.length() + 20); // ".vol12345+12345.par2".length == 20
     }
+
+    // input efficiency * par2SliceSize * 100
+    double efficiencyCoeff = (double)(par2SrcSize *100) / ui->txtInsliceCount->value();
+    QLocale locale;
+
     quint64 lastSize = 0;
+    double lastEfficiency = 0;
+    quint64 totalSize = 0;
     for(const auto& file : files) {
         if(distMode != 0) {
             itemText[0].replace(baseName.length(), 20, Par2OutInfo::fileExt(file.count, file.offset, sliceCount));
@@ -1442,18 +1609,49 @@ void MainWindow::updateDestPreview()
         if(lastSize != file.size) {
             // for large number of files (slowest case), most files will have the same size/slices, so reuse values in such case
             itemText[1] = friendlySize(file.size);
-            itemText[2] = QString::number(file.count);
+            itemText[2] = locale.toString(file.count);
+            lastEfficiency = (double)(file.count * efficiencyCoeff) / file.size;
+            itemText[3] = locale.toString(lastEfficiency, 'f', 2) + "%";
             lastSize = file.size;
         }
+        totalSize += file.size;
         auto item = new OutPreviewListItem(static_cast<QTreeWidgetItem*>(nullptr), itemText);
         item->setTextAlignment(1, Qt::AlignRight);
         item->setTextAlignment(2, Qt::AlignRight);
+        item->setTextAlignment(3, Qt::AlignRight);
         // sort keys
         item->setData(0, Qt::UserRole, file.count == 0 && file.offset == 0 ? -1 : file.offset);
         item->setData(1, Qt::UserRole, file.size);
         item->setData(2, Qt::UserRole, file.count);
+        item->setData(3, Qt::UserRole, lastEfficiency);
         items.append(item);
     }
+
+    // total item
+    if(items.count() > 1) {
+        itemText[0] = tr("[Total]");
+        itemText[1] = friendlySize(totalSize);
+        itemText[2] = locale.toString(sliceCount);
+        lastEfficiency = (double)(sliceCount * efficiencyCoeff) / totalSize;
+        itemText[3] = locale.toString(lastEfficiency, 'f', 2) + "%";
+        auto item = new OutPreviewListItem(static_cast<QTreeWidgetItem*>(nullptr), itemText);
+        item->setTextAlignment(1, Qt::AlignRight);
+        item->setTextAlignment(2, Qt::AlignRight);
+        item->setTextAlignment(3, Qt::AlignRight);
+        QFont boldFont;
+        boldFont.setBold(true);
+        item->setFont(0, boldFont);
+        item->setFont(1, boldFont);
+        item->setFont(2, boldFont);
+        item->setFont(3, boldFont);
+        // sort keys
+        item->setData(0, Qt::UserRole, 65536);
+        item->setData(1, Qt::UserRole, totalSize);
+        item->setData(2, Qt::UserRole, sliceCount);
+        item->setData(3, Qt::UserRole, lastEfficiency);
+        items.append(item);
+    }
+
     ui->tvDest->setUpdatesEnabled(false);
     ui->tvDest->clear(); // TODO: clear seems to be very slow
     ui->tvDest->addTopLevelItems(items);

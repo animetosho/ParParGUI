@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>504</width>
-    <height>343</height>
+    <width>512</width>
+    <height>363</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -52,7 +52,11 @@
           <item row="0" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
-             <widget class="QLineEdit" name="txtPathParPar"/>
+             <widget class="QLineEdit" name="txtPathParPar">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The ParPar executable, or main script (.js) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="btnPathParPar">
@@ -77,6 +81,9 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If a script file was provided above, choose the Node.js executable here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
              </widget>
             </item>
             <item>
@@ -95,14 +102,20 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
          <item>
-          <widget class="QGroupBox" name="groupBox_6">
-           <property name="title">
-            <string>PAR2 Options</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
-            <item>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QGroupBox" name="groupBox_6">
+             <property name="maximumSize">
+              <size>
+               <width>260</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>PAR2 Options</string>
+             </property>
              <layout class="QFormLayout" name="formLayout_4">
               <item row="0" column="0">
                <widget class="QLabel" name="unicodePacketsLabel">
@@ -116,6 +129,15 @@
               </item>
               <item row="0" column="1">
                <widget class="QComboBox" name="cboUnicode">
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Whether to include PAR2 &amp;quot;Unicode&amp;quot; (UTF-16) packets for file names and comments.&lt;/p&gt;&lt;p&gt;By default, will only include them if characters outside the 7-bit ASCII range are present.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Auto</string>
@@ -145,72 +167,609 @@
               </item>
               <item row="1" column="1">
                <widget class="QComboBox" name="cboCharset">
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The character set used to encode non-&amp;quot;Unicode&amp;quot; packets.&lt;/p&gt;&lt;p&gt;'utf8' is recommended.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <item>
                  <property name="text">
-                  <string>utf8</string>
+                  <string notr="true">utf8</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>latin1</string>
+                  <string notr="true">latin1</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>ascii</string>
+                  <string notr="true">ascii</string>
                  </property>
                 </item>
                </widget>
               </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Packet repetition</string>
+                </property>
+                <property name="buddy">
+                 <cstring>txtPacketMin</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <item>
+                 <widget class="QSpinBox" name="txtPacketMin">
+                  <property name="maximumSize">
+                   <size>
+                    <width>60</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum &amp;quot;critical packet&amp;quot; copies to store per recovery volume.&lt;br/&gt;Also defines the number of copies to store in the index file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string notr="true">-</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>txtPacketMax</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="txtPacketMax">
+                  <property name="maximumSize">
+                   <size>
+                    <width>60</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum &amp;quot;critical packet&amp;quot; copies to store per recovery volume.&lt;br/&gt;The number of copies is computed by taking a base-2 logarithm of the number of recovery packets in the file, so this value sets an upper limit.&lt;/p&gt;&lt;p&gt;Note that a value above 16 is meaningless unless the minimum value is higher.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>16</number>
+                  </property>
+                  <property name="value">
+                   <number>16</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="3" column="0" colspan="2">
+               <widget class="QCheckBox" name="chkStdNaming">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use standard naming scheme for recovery files, instead of that popularized by par2cmdline.&lt;/p&gt;&lt;p&gt;Output names will look like &lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;xxx&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;.vol&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;12&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;-&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;22&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;.par2&lt;/span&gt; instead of &lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;xxx&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;.vol&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;12&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;+&lt;/span&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;10&lt;/span&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;.par2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Use spec-defined volume naming</string>
+                </property>
+               </widget>
+              </item>
              </layout>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkStdNaming">
-              <property name="text">
-               <string>Use spec-defined volume naming</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_7">
-           <property name="title">
-            <string>UI Options</string>
-           </property>
-           <layout class="QFormLayout" name="formLayout_6">
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="chkSliceMultiple">
-              <property name="text">
-               <string>Enforce slice size multiple</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="SizeEdit" name="txtSliceMultiple">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string notr="true">750K</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="maximumSize">
+              <size>
+               <width>340</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Default Slice Allocation</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,100" columnstretch="0,5,3">
+              <item row="3" column="2">
+               <widget class="QSpinBox" name="txtSliceLimit">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>32768</number>
+                </property>
+                <property name="value">
+                 <number>32768</number>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QComboBox" name="cboAllocRecMode">
+                <property name="maximumSize">
+                 <size>
+                  <width>150</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default allocation for recovery slices. This can be:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By source ratio&lt;/span&gt;: the ratio of recovery to generate, based on the number of source slices&lt;span style=&quot; font-style:italic;&quot;&gt;&lt;br/&gt;By slice count&lt;/span&gt;: number of recovery slices to generate&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By total size&lt;/span&gt;: target amount of recovery to generate, based on total recovery data size&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>By source ratio</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>By slice count</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>By total size</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_5">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Source</string>
+                </property>
+                <property name="buddy">
+                 <cstring>cboAllocInMode</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QStackedWidget" name="stkAllocRec">
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <widget class="QWidget" name="page_6">
+                 <layout class="QHBoxLayout" name="horizontalLayout_12">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QDoubleSpinBox" name="txtAllocRecRatio">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="suffix">
+                     <string notr="true">%</string>
+                    </property>
+                    <property name="maximum">
+                     <double>6553500.000000000000000</double>
+                    </property>
+                    <property name="value">
+                     <double>10.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_7">
+                 <layout class="QHBoxLayout" name="horizontalLayout_14">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QSpinBox" name="txtAllocRecCount">
+                    <property name="maximum">
+                     <number>65535</number>
+                    </property>
+                    <property name="value">
+                     <number>1000</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_8">
+                 <layout class="QHBoxLayout" name="horizontalLayout_15">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="SizeEdit" name="txtAllocRecSize">
+                    <property name="text">
+                     <string>100M</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="SizeEdit" name="txtSliceMultiple">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>60</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">750K</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QComboBox" name="cboAllocInMode">
+                <property name="maximumSize">
+                 <size>
+                  <width>150</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default allocation for source/input slices. This can be:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By size&lt;/span&gt;: a fixed slice size&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By slice count&lt;/span&gt;: target number of slices to divide source files by&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>By size</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>By slice count</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>By count÷size</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="3" column="0" colspan="2">
+               <widget class="QLabel" name="label_8">
+                <property name="text">
+                 <string>Limit number of slices to</string>
+                </property>
+                <property name="buddy">
+                 <cstring>txtSliceLimit</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="2">
+               <widget class="QCheckBox" name="chkSliceMultiple">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ensure the &lt;span style=&quot; font-style:italic;&quot;&gt;Source Data Slice size&lt;/span&gt; is a multiple of specified value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Enforce slice size multiple</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0" colspan="3">
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="2">
+               <widget class="QStackedWidget" name="stkAllocIn">
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <widget class="QWidget" name="page_4">
+                 <layout class="QHBoxLayout" name="horizontalLayout_11">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="SizeEdit" name="txtAllocInSize">
+                    <property name="text">
+                     <string>1M</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_5">
+                 <layout class="QHBoxLayout" name="horizontalLayout_13">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QSpinBox" name="txtAllocInCount">
+                    <property name="maximum">
+                     <number>32768</number>
+                    </property>
+                    <property name="value">
+                     <number>1000</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_9">
+                 <layout class="QHBoxLayout" name="horizontalLayout_16">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QDoubleSpinBox" name="txtAllocInRatio">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="suffix">
+                     <string notr="true">%</string>
+                    </property>
+                    <property name="maximum">
+                     <double>819200.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.500000000000000</double>
+                    </property>
+                    <property name="value">
+                     <double>1.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_9">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Recovery</string>
+                </property>
+                <property name="buddy">
+                 <cstring>cboAllocRecMode</cstring>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="chkRunClose">
+         <property name="toolTip">
+          <string>Close the progress window once process completes without error, or is cancelled</string>
+         </property>
+         <property name="text">
+          <string>Auto-close progress window</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Performance Tuning</string>
+       <string>I/O Tuning</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,8">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <widget class="QFrame" name="horizontalFrame_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_14">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Tuning preset</string>
+            </property>
+            <property name="buddy">
+             <cstring>cboIOPreset</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>35</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cboIOPreset">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select a I/O tuning preset based on the random I/O performance of the disk, relative to the single-threaded performance of the CPU.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>Slow random I/O [e.g. HDD]</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Balanced (default)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Fast random I/O [e.g. NVMe SSD]</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Custom</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="5,5">
          <item>
           <widget class="QGroupBox" name="groupBox">
            <property name="title">
@@ -235,8 +794,14 @@
             </item>
             <item row="0" column="1">
              <widget class="SizeEdit" name="txtReadSize">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="toolTip">
-               <string>The maximum amount of data which can be read in a single read call. This value is mostly used during sequential processing.</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The maximum amount of data which can be read in a single read call.&lt;/p&gt;&lt;p&gt;Larger values improves efficiency on spinning hard disks, but consumes more RAM.&lt;/p&gt;&lt;p&gt;This value is mostly used during sequential processing.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string notr="true">4M</string>
@@ -261,6 +826,12 @@
             </item>
             <item row="1" column="1">
              <widget class="QSpinBox" name="txtReadBufs">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The maximum number of outstanding reads to hold in memory. Once all buffers have been filled, reading will halt until the back-end finishes processing a buffer, making it available for the next read.&lt;br/&gt;Larger values increase memory usage (where each buffer is sized according to &lt;span style=&quot; font-style:italic;&quot;&gt;Read size&lt;/span&gt;) but may allow for better variation and flexibility during processing.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
@@ -293,6 +864,12 @@
             </item>
             <item row="2" column="1">
              <widget class="QSpinBox" name="txtHashQueue">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The maximum number of outstanding unhashed &lt;span style=&quot; font-style:italic;&quot;&gt;Read buffers&lt;/span&gt; associated with a file. Once a file's hash queue has been filled, read buffers will be allocated to reading from another file. This option enables multiple files to be hashed concurrently, working around the bottleneck of single-threaded file hashing, whilst considering the fact that hard drives strongly prefer sequential reading.&lt;br/&gt;Larger values decrease the likelihood of reading from concurrent files. SSDs or disks with fast random access may prefer smaller values than the default.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
@@ -308,6 +885,39 @@
              </widget>
             </item>
             <item row="3" column="0">
+             <widget class="QLabel" name="hashKernelLabel">
+              <property name="text">
+               <string>Hash kernel</string>
+              </property>
+              <property name="buddy">
+               <cstring>cboHashKernel</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="cboHashKernel">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The kernel used to hash the input.&lt;/p&gt;&lt;p&gt;PAR2 requires 2x MD5 + CRC32 to be calculated on the input; the names refer to the method used for each type of hash.&lt;/p&gt;&lt;p&gt;Choosing a kernel unsupported by your CPU may cause ParPar to crash&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <item>
+               <property name="text">
+                <string notr="true">auto</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">scalar</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="4" column="0">
              <widget class="QLabel" name="minChunkSizeLabel_2">
               <property name="text">
                <string>Min chunk size</string>
@@ -317,13 +927,51 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="4" column="1">
              <widget class="SizeEdit" name="txtMinChunk">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The minimum unit of data to process during chunked processing.&lt;br/&gt;Allowing smaller chunks generally improves efficiency, but increases per-chunk overhead.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string notr="true">128K</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="chunkReadThreadsLabel">
+              <property name="text">
+               <string>Chunk read threads</string>
+              </property>
+              <property name="buddy">
+               <cstring>txtChunkReadThreads</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QSpinBox" name="txtChunkReadThreads">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of concurrent read requests to issue during chunked processing.&lt;br/&gt;Issuing more concurrent reads may place a higher load on the disk, but could be more performant on disks which prefer higher QD random reads (like SSDs).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>32768</number>
+              </property>
+              <property name="value">
+               <number>2</number>
               </property>
              </widget>
             </item>
@@ -354,8 +1002,14 @@
             </item>
             <item row="0" column="1">
              <widget class="QSpinBox" name="txtRecBufs">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="toolTip">
-               <string>The number of outstanding recovery slices from the processing back-end to hold in memory. Once these buffers have been filled, pulling from the back-end will wait until the buffers have been hashed and written to disk.</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of outstanding recovery slices from the processing back-end to hold in memory.&lt;/p&gt;&lt;p&gt;Once these buffers have been filled, pulling from the back-end will wait until the buffers have been hashed and written to disk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="minimum">
                <number>1</number>
@@ -377,7 +1031,7 @@
                </size>
               </property>
               <property name="text">
-               <string>Hash batch size</string>
+               <string>MD5 batch size</string>
               </property>
               <property name="buddy">
                <cstring>txtRecHashBatch</cstring>
@@ -386,8 +1040,14 @@
             </item>
             <item row="1" column="1">
              <widget class="QSpinBox" name="txtRecHashBatch">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of &lt;span style=&quot; font-style:italic;&quot;&gt;Recovery buffers&lt;/span&gt; to send to the multi-buffer MD5 kernel for hashing. The process will wait for this many recovery buffers to be filled before attempting to hash them.&lt;br/&gt;Larger values may allow for wider SIMD to be used for MD5 hashing, but requires more memory and may reduce hash-write concurrency.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of &lt;span style=&quot; font-style:italic;&quot;&gt;Recovery buffers&lt;/span&gt; to send to the multi-buffer MD5 kernel for hashing. The process will wait for this many recovery buffers to be filled before attempting to hash them.&lt;br/&gt;Larger values may allow for wider SIMD to be used for MD5 hashing, but limits threading and may reduce hash-write concurrency.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="minimum">
                <number>1</number>
@@ -400,117 +1060,46 @@
               </property>
              </widget>
             </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QGroupBox" name="groupBox_3">
-           <property name="title">
-            <string>Recovery Computation</string>
-           </property>
-           <layout class="QFormLayout" name="formLayout_3">
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="chkProcBatch">
-              <property name="text">
-               <string>Batch size</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QSpinBox" name="txtProcBatch">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>32768</number>
-              </property>
-              <property name="value">
-               <number>12</number>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="chkMemLimit">
-              <property name="text">
-               <string>Memory limit</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="SizeEdit" name="txtMemLimit">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string notr="true">256M</string>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="0">
-             <widget class="QCheckBox" name="chkProcKernel">
+             <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>GF16 kernel</string>
+               <string>MD5 kernel</string>
+              </property>
+              <property name="buddy">
+               <cstring>cboMD5Kernel</cstring>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QComboBox" name="cboProcKernel">
-              <property name="enabled">
-               <bool>false</bool>
+             <widget class="QComboBox" name="cboMD5Kernel">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The kernel used to hash recovery data. Choosing a kernel unsupported by your CPU may cause ParPar to crash&lt;/p&gt;&lt;p&gt;The chosen kernel will only be used if not limited by the &lt;span style=&quot; font-style:italic;&quot;&gt;MD5 batch size&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <item>
                <property name="text">
-                <string notr="true">lookup</string>
+                <string notr="true">auto</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string notr="true">3p_lookup</string>
+                <string notr="true">scalar</string>
                </property>
               </item>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QCheckBox" name="chkThreads">
-              <property name="text">
-               <string>Threads</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QSpinBox" name="txtThreads">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>999</number>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QCheckBox" name="chkTileSize">
-              <property name="text">
-               <string>Loop tile size</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="SizeEdit" name="txtTileSize">
-              <property name="enabled">
-               <bool>false</bool>
+            <item row="3" column="0" colspan="2">
+             <widget class="QCheckBox" name="chkOutputSync">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Issue a sync on output files after processing.&lt;/p&gt;&lt;p&gt;This ensures the recovery data is written to disk when ParPar exits.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-               <string notr="true">32K</string>
+               <string>Sync output on close</string>
               </property>
              </widget>
             </item>
@@ -521,12 +1110,570 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Compute Tuning</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="7,4">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QTreeWidget" name="treeDevices">
+           <property name="rootIsDecorated">
+            <bool>false</bool>
+           </property>
+           <property name="itemsExpandable">
+            <bool>false</bool>
+           </property>
+           <property name="expandsOnDoubleClick">
+            <bool>false</bool>
+           </property>
+           <column>
+            <property name="text">
+             <string>Platform/Device</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Allocation</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignTrailing|AlignVCenter</set>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chkOpencl">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Show OpenCL devices in device list.&lt;/p&gt;&lt;p&gt;Note that OpenCL support is currently considered unstable - use at your own caution!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>Enable OpenCL (experimental!)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="stkComputeOpt">
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="page">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QGroupBox" name="groupBox_4">
+             <property name="title">
+              <string>CPU Tuning Options</string>
+             </property>
+             <layout class="QFormLayout" name="formLayout_9">
+              <item row="0" column="0" colspan="2">
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These parameters are automatically chosen.&lt;br/&gt;Tick the checkboxes to override defaults.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QCheckBox" name="chkProcBatch">
+                <property name="text">
+                 <string>Batch size</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QSpinBox" name="txtProcBatch">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of input slices to process at once.&lt;/p&gt;&lt;p&gt;The optimal value varies with CPU, the selected &lt;span style=&quot; font-style:italic;&quot;&gt;GF16 kernel&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Loop tile size&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>32768</number>
+                </property>
+                <property name="value">
+                 <number>12</number>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QCheckBox" name="chkMemLimit">
+                <property name="text">
+                 <string>Memory limit</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="SizeEdit" name="txtMemLimit">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum amount of memory to allocate to holding recovery slices. Note that this includes memory allocated for transferring to/from the back-end (governed by &lt;span style=&quot; font-style:italic;&quot;&gt;Batch size&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Recovery buffers&lt;/span&gt; options), but does not include the memory used for reading (&lt;span style=&quot; font-style:italic;&quot;&gt;Read size&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Read buffers&lt;/span&gt; options).&lt;/p&gt;&lt;p&gt;Allowing more memory to be used may reduce the number of passes over the input data needed to generate the final PAR2.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string notr="true">256M</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QCheckBox" name="chkProcKernel">
+                <property name="text">
+                 <string>GF16 kernel</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QComboBox" name="cboProcKernel">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The core kernel used for computing recovery. Selecting a kernel unsupported by your CPU may cause ParPar to crash.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string notr="true">lookup</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">3p_lookup</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QCheckBox" name="chkTileSize">
+                <property name="text">
+                 <string>Loop tile size</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="SizeEdit" name="txtTileSize">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Target size to sub-divide slices into. This is used for loop tiling optimisation.&lt;/p&gt;&lt;p&gt;Ideal value depends on the chosen &lt;span style=&quot; font-style:italic;&quot;&gt;GF16 kernel&lt;/span&gt; and available CPU cache.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string notr="true">32K</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QCheckBox" name="chkThreads">
+                <property name="text">
+                 <string>Threads</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QSpinBox" name="txtThreads">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of threads to use for computing recovery. Note that this does not include threads used to hash the input.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>999</number>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Min chunk size</string>
+                </property>
+                <property name="buddy">
+                 <cstring>txtCpuMinChunk</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="SizeEdit" name="txtCpuMinChunk">
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Target minimum slice chunk sent to the CPU back-end, if other processing devices are enabled&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>128K</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_2">
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_10">
+             <item>
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Allocation</string>
+               </property>
+               <property name="buddy">
+                <cstring>txtOclAlloc</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="txtOclAlloc">
+               <property name="maximumSize">
+                <size>
+                 <width>120</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The fraction of each slice to be processed on this device&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="suffix">
+                <string notr="true">%</string>
+               </property>
+               <property name="maximum">
+                <double>100.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>5.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="grpOpenclOpts">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="title">
+              <string>Device Options</string>
+             </property>
+             <layout class="QFormLayout" name="formLayout_3">
+              <item row="0" column="0">
+               <widget class="QCheckBox" name="chkOclBatch">
+                <property name="text">
+                 <string>Batch size</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QSpinBox" name="txtOclBatch">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of input slices to process at once&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>32768</number>
+                </property>
+                <property name="value">
+                 <number>4</number>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QCheckBox" name="chkOclMemory">
+                <property name="text">
+                 <string>Memory limit</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="SizeEdit" name="txtOclMemory">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum amount of the device's memory to allocate to holding recovery slices&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>128M</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="lblOclKernel">
+                <property name="text">
+                 <string>GF16 kernel</string>
+                </property>
+                <property name="buddy">
+                 <cstring>cboOclKernel</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QComboBox" name="cboOclKernel">
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The core kernel used for computing recovery&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <item>
+                 <property name="text">
+                  <string notr="true">lookup</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">lookup_half</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">lookup_nc</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">lookup_half_nc</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">log</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">log_small</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">log_small2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">log_tiny</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">log_small_lm</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">log_tiny_lm</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string notr="true">by2</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QCheckBox" name="chkOclIters">
+                <property name="text">
+                 <string>Iterations</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QSpinBox" name="txtOclIters">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The target number of iterations to process per workgroup&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>1000000000</number>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QCheckBox" name="chkOclOutputs">
+                <property name="text">
+                 <string>Outputs</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QSpinBox" name="txtOclOutputs">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Target number of recovery slices to generate per workgroup&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>65535</number>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="lblOclMinChunk">
+                <property name="text">
+                 <string>Min chunk size</string>
+                </property>
+                <property name="buddy">
+                 <cstring>txtOclMinChunk</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="SizeEdit" name="txtOclMinChunk">
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum slice chunk to send to this device. If this amount cannot be allocated to the device, the device may be excluded from participating in computation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>32K</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_3"/>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QPushButton" name="btnReset">
+       <property name="toolTip">
+        <string>Revert all settings to defaults</string>
+       </property>
        <property name="text">
         <string>Reset</string>
        </property>
@@ -557,6 +1704,67 @@
    </slots>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>txtPathParPar</tabstop>
+  <tabstop>btnPathParPar</tabstop>
+  <tabstop>chkPathNode</tabstop>
+  <tabstop>txtPathNode</tabstop>
+  <tabstop>btnPathNode</tabstop>
+  <tabstop>cboUnicode</tabstop>
+  <tabstop>cboCharset</tabstop>
+  <tabstop>txtPacketMin</tabstop>
+  <tabstop>txtPacketMax</tabstop>
+  <tabstop>chkStdNaming</tabstop>
+  <tabstop>cboAllocInMode</tabstop>
+  <tabstop>txtAllocInSize</tabstop>
+  <tabstop>txtAllocInCount</tabstop>
+  <tabstop>cboAllocRecMode</tabstop>
+  <tabstop>txtAllocRecRatio</tabstop>
+  <tabstop>txtAllocRecCount</tabstop>
+  <tabstop>txtAllocRecSize</tabstop>
+  <tabstop>chkSliceMultiple</tabstop>
+  <tabstop>txtSliceMultiple</tabstop>
+  <tabstop>txtSliceLimit</tabstop>
+  <tabstop>chkRunClose</tabstop>
+  <tabstop>cboIOPreset</tabstop>
+  <tabstop>txtReadSize</tabstop>
+  <tabstop>txtReadBufs</tabstop>
+  <tabstop>txtHashQueue</tabstop>
+  <tabstop>cboHashKernel</tabstop>
+  <tabstop>txtMinChunk</tabstop>
+  <tabstop>txtChunkReadThreads</tabstop>
+  <tabstop>txtRecBufs</tabstop>
+  <tabstop>txtRecHashBatch</tabstop>
+  <tabstop>cboMD5Kernel</tabstop>
+  <tabstop>chkOutputSync</tabstop>
+  <tabstop>treeDevices</tabstop>
+  <tabstop>chkOpencl</tabstop>
+  <tabstop>chkProcBatch</tabstop>
+  <tabstop>txtProcBatch</tabstop>
+  <tabstop>chkMemLimit</tabstop>
+  <tabstop>txtMemLimit</tabstop>
+  <tabstop>chkProcKernel</tabstop>
+  <tabstop>cboProcKernel</tabstop>
+  <tabstop>chkTileSize</tabstop>
+  <tabstop>txtTileSize</tabstop>
+  <tabstop>chkThreads</tabstop>
+  <tabstop>txtThreads</tabstop>
+  <tabstop>txtCpuMinChunk</tabstop>
+  <tabstop>txtOclAlloc</tabstop>
+  <tabstop>chkOclBatch</tabstop>
+  <tabstop>txtOclBatch</tabstop>
+  <tabstop>chkOclMemory</tabstop>
+  <tabstop>txtOclMemory</tabstop>
+  <tabstop>cboOclKernel</tabstop>
+  <tabstop>chkOclIters</tabstop>
+  <tabstop>txtOclIters</tabstop>
+  <tabstop>chkOclOutputs</tabstop>
+  <tabstop>txtOclOutputs</tabstop>
+  <tabstop>txtOclMinChunk</tabstop>
+  <tabstop>btnReset</tabstop>
+  <tabstop>txtAllocInRatio</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -566,8 +1774,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>341</x>
-     <y>334</y>
+     <x>434</x>
+     <y>328</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -582,8 +1790,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>409</x>
-     <y>334</y>
+     <x>502</x>
+     <y>328</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

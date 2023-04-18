@@ -66,7 +66,7 @@ QString escapeShellArg(QString arg) {
     if(basic.match(arg).hasMatch())
         return arg;
     // I think this is correct...
-    return QString("\"%1\"").arg(arg.replace("\"", "\"\"").replace("%", "\"^%\"").replace("!", "\"^!\"").replace("\\", "\\\\"));
+    return QString("\"%1\"").arg(arg.replace("\"", "\"\"").replace("%", "\"^%\"").replace("!", "\"^!\"").replace("\\", "\\\\").replace("\n", "\"^\n\"").replace("\r", "\"^\r\""));
 #else
     QRegularExpression basic("^[a-zA-Z0-9\\-_=.,:/]+$");
     if(basic.match(arg).hasMatch())

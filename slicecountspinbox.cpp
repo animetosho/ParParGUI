@@ -14,7 +14,7 @@ void SliceCountSpinBox::stepBy(int steps)
     int target = value() + steps;
     // fix up target
     if(mainWin)
-        Par2Calc::sliceSizeFromCount(target, mainWin->optionSliceMultiple, mainWin->par2SrcFiles, mainWin->par2FileCount, steps);
+        Par2Calc::sliceSizeFromCount(target, mainWin->optionSliceMultiple, mainWin->optionSliceLimit, mainWin->par2SrcFiles, mainWin->par2FileCount, steps);
 
     if(target < minimum()) target = minimum();
     else if(target > maximum()) target = maximum();
