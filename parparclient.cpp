@@ -32,12 +32,12 @@ void ParParClient::run(const QStringList& _args, int timeout)
     isRunning = true;
     isCancelled = false;
     stdoutBuffer.clear();
-    parpar.start(cmd[0], args);
     if(timeout)
     {
         timer.setInterval(timeout);
         timer.start();
     }
+    parpar.start(cmd[0], args);
 }
 
 void ParParClient::finished(int exitCode, QProcess::ExitStatus exitStatus)
@@ -48,7 +48,7 @@ void ParParClient::finished(int exitCode, QProcess::ExitStatus exitStatus)
     if(isCancelled) {
         emit failed(QString());
     } else if(exitStatus != QProcess::ExitStatus::NormalExit) {
-        emit failed(tr("ParPar process crashed"));
+        emit failed(tr("ParPar process crashed or failed to start"));
     } else if(exitCode != 0) {
         emit failed(tr("ParPar failure (exit code: %1)").arg(exitCode));
     } else {

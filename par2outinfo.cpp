@@ -153,7 +153,10 @@ Par2RecoveryFile Par2OutInfo::makeRecFile(int sliceCount, int sliceOffset)
 
     if(1 /*pow2 repetition*/ && sliceCount) {
         int critCopies = static_cast<int>(round(log(static_cast<double>(sliceCount)) / log(2.0)));
-        if(critCopies < 1) critCopies = 1;
+
+        const auto& s = Settings::getInstance();
+        critCopies = std::max(critCopies, s.packetRepMin());
+        critCopies = std::min(critCopies, s.packetRepMax());
         critTotalSize *= critCopies;
     }
 

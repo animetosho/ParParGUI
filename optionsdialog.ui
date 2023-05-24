@@ -20,7 +20,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -324,7 +324,7 @@
                  </size>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default allocation for recovery slices. This can be:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By source ratio&lt;/span&gt;: the ratio of recovery to generate, based on the number of source slices&lt;span style=&quot; font-style:italic;&quot;&gt;&lt;br/&gt;By slice count&lt;/span&gt;: number of recovery slices to generate&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By total size&lt;/span&gt;: target amount of recovery to generate, based on total recovery data size&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default allocation for recovery slices. This can be:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By source ratio&lt;/span&gt;: the ratio of recovery to generate, based on the number of source slices&lt;span style=&quot; font-style:italic;&quot;&gt;&lt;br/&gt;By slice count&lt;/span&gt;: exact number of recovery slices to generate&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By total size&lt;/span&gt;: target amount of recovery to generate, based on total recovery data size&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <item>
                  <property name="text">
@@ -493,7 +493,7 @@
                  </size>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default allocation for source/input slices. This can be:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By size&lt;/span&gt;: a fixed slice size&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By slice count&lt;/span&gt;: target number of slices to divide source files by&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default allocation for source/input slices. This can be:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By size&lt;/span&gt;: a fixed slice size&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By slice count&lt;/span&gt;: target number of slices to divide source files by&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;By count÷size&lt;/span&gt;: target ratio between number of slices and slice size&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <item>
                  <property name="text">
@@ -515,7 +515,7 @@
               <item row="3" column="0" colspan="2">
                <widget class="QLabel" name="label_8">
                 <property name="text">
-                 <string>Limit number of slices to</string>
+                 <string>Max number of source slices</string>
                 </property>
                 <property name="buddy">
                  <cstring>txtSliceLimit</cstring>
@@ -1161,7 +1161,7 @@
           <number>0</number>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page">
           <layout class="QVBoxLayout" name="verticalLayout_3">

@@ -231,7 +231,7 @@ void OptionsDialog::accept()
     QList<OpenclDevice> oclDevices;
     if(ui->chkOpencl->isChecked()) {
         float totalAlloc = 0;
-        QHashIterator it(openclSettings);
+        QHashIterator<QString, OpenclDevice> it(openclSettings);
         while(it.hasNext()) {
             it.next();
             const auto& dev = it.value();
@@ -403,7 +403,7 @@ void OptionsDialog::rescale()
 {
     int w = ui->treeDevices->width();
     ui->treeDevices->header()->setUpdatesEnabled(false);
-    ui->treeDevices->header()->resizeSection(0, w>185 ? w-65 : 120);
+    ui->treeDevices->header()->resizeSection(0, w>190 ? w-70 : 120);
     ui->treeDevices->header()->resizeSection(1, 60);
     ui->treeDevices->header()->setUpdatesEnabled(true);
 }
@@ -602,7 +602,7 @@ void OptionsDialog::fillDeviceList(bool opencl)
             topItems[0]->setText(1, QLocale().toString(cpuAlloc, 'f', 2) + "%");
 
         // prune unrecognised devices
-        QMutableHashIterator it(openclSettings);
+        QMutableHashIterator<QString, OpenclDevice> it(openclSettings);
         while(it.hasNext()) {
             it.next();
             if(!seenDevices.contains(it.key()))
@@ -638,18 +638,21 @@ void OptionsDialog::loadOpenclDevices()
 
     auto parpar = new ParParClient(this);
     connect(parpar, &ParParClient::failed, this, [=](const QString& error) {
-        if(!error.isEmpty()) // isEmpty = cancelled
-            QMessageBox::warning(this, tr("OpenCL Options"), tr("Failed to query list of OpenCL devices.\n%1").arg(error));
+        progress->setValue(0); // closes window
+        delete progress;
         haveOclDevices = false;
         ui->chkOpencl->setChecked(false);
-        delete parpar;
+        parpar->deleteLater();
+
+        if(!error.isEmpty()) // isEmpty = cancelled
+            QMessageBox::warning(this, tr("OpenCL Options"), tr("Failed to query list of OpenCL devices.\n%1").arg(error));
     });
     connect(parpar, &ParParClient::output, this, [=](const QJsonObject& obj) {
         oclPlatforms = obj.value("platforms").toArray();
         progress->setValue(0); // closes window
         delete progress;
         fillDeviceList(ui->chkOpencl->isChecked());
-        delete parpar;
+        parpar->deleteLater();
     });
     connect(progress, &QProgressDialog::canceled, this, [=]() {
         parpar->kill();

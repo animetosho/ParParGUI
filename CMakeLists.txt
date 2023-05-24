@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(parpargui VERSION 0.2 LANGUAGES CXX)
+project(parpargui VERSION 0.4 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 

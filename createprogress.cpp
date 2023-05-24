@@ -204,7 +204,7 @@ void CreateProgress::finished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     if(isCancelled) return;
     if(exitStatus != QProcess::ExitStatus::NormalExit) {
-        this->ended(tr("ParPar process crashed"), true);
+        this->ended(tr("ParPar process crashed or failed to start"), true);
     } else if(exitCode != 0) {
         ended(tr("PAR2 creation failed (exit code: %1)").arg(exitCode), true);
     } else {

@@ -334,7 +334,7 @@
                      </size>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove selected files from the list of source files&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove selected files from the list of source files. Removing a folder will remove all files within.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>Re&amp;move</string>
@@ -475,7 +475,7 @@
                        </size>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How path names should be stored in the PAR2 output&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How path names should be stored in the PAR2 output. This can be:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Discard paths&lt;/span&gt;: discard all path names and only store file names (note that you'll need to ensure there's no duplicates)&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Relative path names&lt;/span&gt;: store the relative path from the &lt;span style=&quot; font-style:italic;&quot;&gt;Base path&lt;/span&gt; for each file&lt;br/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Absolute path names&lt;/span&gt;: store full file paths&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="currentIndex">
                        <number>1</number>
@@ -616,6 +616,9 @@
                    <height>16777215</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Divide each input file by slices of this size.&lt;/p&gt;&lt;p&gt;Slice size must be a multiple of 4 bytes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="text">
                   <string notr="true">1M</string>
                  </property>
@@ -642,6 +645,9 @@
                    <height>16777215</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Total number of slices to divide input files into.&lt;/p&gt;&lt;p&gt;Value must be between 1 and 32768.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="minimum">
                   <number>1</number>
                  </property>
@@ -662,6 +668,9 @@
                </item>
                <item row="2" column="1">
                 <widget class="QLabel" name="lblInslicePadding">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Total amount of source data that will be allocated to padding.&lt;/p&gt;&lt;p&gt;Padding occurs when an input file's size is not a multiple of the slice size, to ensure all files fit to whole slices. Padding can generally be reduced by choosing a smaller slice size, or finding a size that suits the input files more appropriately.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
@@ -706,6 +715,9 @@
                    <height>16777215</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of recovery slices to generate as a ratio of the number of source slices&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="suffix">
                   <string notr="true">%</string>
                  </property>
@@ -738,6 +750,9 @@
                    <height>16777215</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exact number of recovery slices to generate.&lt;/p&gt;&lt;p&gt;Value must be between 0 and 65535&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="maximum">
                   <number>65535</number>
                  </property>
@@ -766,6 +781,9 @@
                    <width>80</width>
                    <height>16777215</height>
                   </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Target size of recovery data to generate.&lt;/p&gt;&lt;p&gt;Note that the size of the PAR2 files will be larger (see &lt;span style=&quot; font-style:italic;&quot;&gt;Preview Output&lt;/span&gt; for total output size)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text">
                   <string notr="true">100M</string>
