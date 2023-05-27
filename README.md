@@ -3,8 +3,6 @@ ParPar GUI
 
 ParPar GUI is a graphical front-end to the [command-line ParPar application](https://github.com/animetosho/ParPar), which is a high performance, multi-threaded [PAR2](https://en.wikipedia.org/wiki/Parchive) *creation-only* tool (verify/repair unsupported). The GUI exposes most of ParPar’s features, saving users from having to learn the command-line flags for most functionality.
 
-Currently, this application is targeting the upcoming v0.4.0 release of ParPar and is only available for preview for now.
-
 ![Screenshot](doc/screenshot.png)
 
 # Download
@@ -29,7 +27,7 @@ make
 Alternatively, you can [install Qt Creator](https://www.qt.io/download-qt-installer), run it and load the *CMakeLists.txt* file as a project, and compile that.
 
 Once built, you’ll need to ensure ParPar GUI can find ParPar itself. By default, it’ll automatically search the current directory for ParPar binaries, or the *bin/parpar.js* file along with the Node.js interpreter. Alternatively, the correct paths can be configured via the Options dialog.
-See [building info](https://github.com/animetosho/ParPar#install-from-source) on ParPar’s side for help on obtaining ParPar (note that the current release version (v0.3.2) is incompatible with this GUI).
+See [building info](https://github.com/animetosho/ParPar#install-from-source) on ParPar’s side for help on obtaining ParPar.
 
 License
 =======
