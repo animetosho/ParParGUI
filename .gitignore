@@ -70,6 +70,3 @@ CMakeLists.txt.user*
 # --------
 *.dll
 *.exe
-
-# Default language file
-parpargui_en_GB.ts
