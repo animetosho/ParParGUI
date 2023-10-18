@@ -223,7 +223,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="437"/>
-        <location filename="mainwindow.ui" line="1318"/>
+        <location filename="mainwindow.ui" line="1324"/>
         <source>File Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -234,7 +234,7 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="447"/>
-        <location filename="mainwindow.ui" line="1323"/>
+        <location filename="mainwindow.ui" line="1329"/>
         <source>File Size</source>
         <translation type="unfinished"></translation>
     </message>
@@ -434,73 +434,73 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1117"/>
+        <location filename="mainwindow.ui" line="1123"/>
         <source>Limit slices to largest source file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1127"/>
+        <location filename="mainwindow.ui" line="1133"/>
         <source>Max slices per file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1134"/>
+        <location filename="mainwindow.ui" line="1140"/>
         <source>Max file size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1247"/>
+        <location filename="mainwindow.ui" line="1253"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a comment to the generated PAR2 file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1250"/>
-        <location filename="mainwindow.cpp" line="673"/>
+        <location filename="mainwindow.ui" line="1256"/>
+        <location filename="mainwindow.cpp" line="674"/>
         <source>Set Comme&amp;nt...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1269"/>
+        <location filename="mainwindow.ui" line="1275"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display what PAR2 files will be generated&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1272"/>
+        <location filename="mainwindow.ui" line="1278"/>
         <source>Previe&amp;w Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1331"/>
+        <location filename="mainwindow.ui" line="1337"/>
         <source>Slice Count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1339"/>
+        <location filename="mainwindow.ui" line="1345"/>
         <source>Efficiency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1393"/>
+        <location filename="mainwindow.ui" line="1399"/>
         <source>&amp;About...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1418"/>
+        <location filename="mainwindow.ui" line="1424"/>
         <source>Op&amp;tions...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1462"/>
+        <location filename="mainwindow.ui" line="1468"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copy the ParPar command that will be executed when &lt;span style=&quot; font-style:italic;&quot;&gt;Create&lt;/span&gt; is clicked.&lt;/p&gt;&lt;p&gt;This is useful if you wish to run ParPar manually from the command line.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1465"/>
+        <location filename="mainwindow.ui" line="1471"/>
         <source>Cop&amp;y Command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1498"/>
+        <location filename="mainwindow.ui" line="1504"/>
         <source>&amp;Create</source>
         <translation type="unfinished"></translation>
     </message>
@@ -522,161 +522,161 @@ Detail: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="282"/>
+        <location filename="mainwindow.cpp" line="283"/>
         <source>About ParPar GUI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="323"/>
-        <location filename="mainwindow.cpp" line="680"/>
-        <location filename="mainwindow.cpp" line="1346"/>
-        <location filename="mainwindow.cpp" line="1353"/>
+        <location filename="mainwindow.cpp" line="324"/>
+        <location filename="mainwindow.cpp" line="681"/>
+        <location filename="mainwindow.cpp" line="1347"/>
+        <location filename="mainwindow.cpp" line="1354"/>
         <source>Add source files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="323"/>
-        <location filename="mainwindow.cpp" line="680"/>
+        <location filename="mainwindow.cpp" line="324"/>
+        <location filename="mainwindow.cpp" line="681"/>
         <source>All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="336"/>
-        <location filename="mainwindow.cpp" line="695"/>
+        <location filename="mainwindow.cpp" line="337"/>
+        <location filename="mainwindow.cpp" line="696"/>
         <source>Add source files from directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="414"/>
-        <location filename="mainwindow.cpp" line="441"/>
+        <location filename="mainwindow.cpp" line="415"/>
+        <location filename="mainwindow.cpp" line="442"/>
         <source>Adding files...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="458"/>
+        <location filename="mainwindow.cpp" line="459"/>
         <source>Select base path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="495"/>
+        <location filename="mainwindow.cpp" line="496"/>
         <source>Select destination recovery base file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="495"/>
+        <location filename="mainwindow.cpp" line="496"/>
         <source>PAR2 files (*.par2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="664"/>
+        <location filename="mainwindow.cpp" line="665"/>
         <source>PAR2 Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="664"/>
+        <location filename="mainwindow.cpp" line="665"/>
         <source>Enter a comment for this PAR2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="669"/>
+        <location filename="mainwindow.cpp" line="670"/>
         <source>Set Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="669"/>
+        <location filename="mainwindow.cpp" line="670"/>
         <source>Comment has been set, however long comments may cause issues with Windows&apos; command length limits. Keeping comments short is recommended.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="673"/>
+        <location filename="mainwindow.cpp" line="674"/>
         <source>Edit Comme&amp;nt...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="746"/>
+        <location filename="mainwindow.cpp" line="747"/>
         <source>Building file list...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1004"/>
+        <location filename="mainwindow.cpp" line="1005"/>
         <source>Refreshing file info...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1184"/>
-        <location filename="mainwindow.cpp" line="1193"/>
-        <location filename="mainwindow.cpp" line="1200"/>
-        <location filename="mainwindow.cpp" line="1206"/>
+        <location filename="mainwindow.cpp" line="1185"/>
+        <location filename="mainwindow.cpp" line="1194"/>
+        <location filename="mainwindow.cpp" line="1201"/>
+        <location filename="mainwindow.cpp" line="1207"/>
         <source>Copy Command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1184"/>
+        <location filename="mainwindow.cpp" line="1185"/>
         <source>The generated command would likely exceed Windows&apos; maximum command length. Would you like to write the list of files to a file, and reference that instead?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1193"/>
-        <location filename="mainwindow.cpp" line="1206"/>
+        <location filename="mainwindow.cpp" line="1194"/>
+        <location filename="mainwindow.cpp" line="1207"/>
         <source>The ParPar command has been copied to the clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1200"/>
+        <location filename="mainwindow.cpp" line="1201"/>
         <source>The ParPar command has been copied to the clipboard, but may exceed Windows&apos; maximum command length.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1226"/>
-        <location filename="mainwindow.cpp" line="1242"/>
-        <location filename="mainwindow.cpp" line="1281"/>
-        <location filename="mainwindow.cpp" line="1285"/>
-        <location filename="mainwindow.cpp" line="1292"/>
+        <location filename="mainwindow.cpp" line="1227"/>
+        <location filename="mainwindow.cpp" line="1243"/>
+        <location filename="mainwindow.cpp" line="1282"/>
+        <location filename="mainwindow.cpp" line="1286"/>
+        <location filename="mainwindow.cpp" line="1293"/>
         <source>Create PAR2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1242"/>
+        <location filename="mainwindow.cpp" line="1243"/>
         <source>%1 duplicate file name(s) were found in the source file list. Please remove all duplicate names before proceeding.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1281"/>
+        <location filename="mainwindow.cpp" line="1282"/>
         <source>One or more output file names are too long. Please shorten the output file name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1285"/>
+        <location filename="mainwindow.cpp" line="1286"/>
         <source>The following output file(s) already exist. Do you want to overwrite them?%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1292"/>
+        <location filename="mainwindow.cpp" line="1293"/>
         <source>Failed to create directory for output.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1347"/>
+        <location filename="mainwindow.cpp" line="1348"/>
         <source>PAR2 supports a maximum of 32768 (non-empty) files per archive. Currently, there are %1 files loaded. Please remove files to bring the count under the limit before proceeding.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1354"/>
+        <location filename="mainwindow.cpp" line="1355"/>
         <source>A slice count limit of %1 has been set, which is less than the %2 currently loaded files. Please remove files to bring the count under the limit before proceeding.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1375"/>
+        <location filename="mainwindow.cpp" line="1376"/>
         <source>%1 / %2+%3 file(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1380"/>
+        <location filename="mainwindow.cpp" line="1381"/>
         <source>%1 / %2 file(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1632"/>
+        <location filename="mainwindow.cpp" line="1633"/>
         <source>[Total]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1149,7 +1149,7 @@ Detail: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="648"/>
+        <location filename="optionsdialog.cpp" line="651"/>
         <source>OpenCL Options</source>
         <oldsource>OpenCL Devices</oldsource>
         <translation type="unfinished"></translation>
@@ -1206,108 +1206,108 @@ Detail: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="170"/>
-        <location filename="optionsdialog.cpp" line="178"/>
-        <location filename="optionsdialog.cpp" line="184"/>
-        <location filename="optionsdialog.cpp" line="191"/>
-        <location filename="optionsdialog.cpp" line="198"/>
-        <location filename="optionsdialog.cpp" line="207"/>
-        <location filename="optionsdialog.cpp" line="211"/>
-        <location filename="optionsdialog.cpp" line="217"/>
-        <location filename="optionsdialog.cpp" line="222"/>
-        <location filename="optionsdialog.cpp" line="227"/>
-        <location filename="optionsdialog.cpp" line="242"/>
-        <location filename="optionsdialog.cpp" line="247"/>
+        <location filename="optionsdialog.cpp" line="173"/>
+        <location filename="optionsdialog.cpp" line="181"/>
+        <location filename="optionsdialog.cpp" line="187"/>
+        <location filename="optionsdialog.cpp" line="194"/>
+        <location filename="optionsdialog.cpp" line="201"/>
+        <location filename="optionsdialog.cpp" line="210"/>
+        <location filename="optionsdialog.cpp" line="214"/>
+        <location filename="optionsdialog.cpp" line="220"/>
+        <location filename="optionsdialog.cpp" line="225"/>
+        <location filename="optionsdialog.cpp" line="230"/>
+        <location filename="optionsdialog.cpp" line="245"/>
+        <location filename="optionsdialog.cpp" line="250"/>
         <source>Update Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="170"/>
+        <location filename="optionsdialog.cpp" line="173"/>
         <source>The packet repetition minimum value cannot exceed the maximum value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="178"/>
+        <location filename="optionsdialog.cpp" line="181"/>
         <source>The slice size must be a multiple of 4 bytes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="184"/>
+        <location filename="optionsdialog.cpp" line="187"/>
         <source>The amount of recovery data should be a multiple of the slice size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="191"/>
+        <location filename="optionsdialog.cpp" line="194"/>
         <source>The number of source slices cannot exceed the slice limt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="198"/>
+        <location filename="optionsdialog.cpp" line="201"/>
         <source>The slice count÷size ratio must be greater than 0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="207"/>
+        <location filename="optionsdialog.cpp" line="210"/>
         <source>The slice size multiple must be a multiple of 4 bytes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="211"/>
+        <location filename="optionsdialog.cpp" line="214"/>
         <source>The selected slice size is not a multiple of the selected slice size multiple</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="217"/>
+        <location filename="optionsdialog.cpp" line="220"/>
         <source>The Min chunk size must be a multiple of 2 bytes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="222"/>
+        <location filename="optionsdialog.cpp" line="225"/>
         <source>The CPU Min chunk size must be a multiple of 2 bytes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="227"/>
+        <location filename="optionsdialog.cpp" line="230"/>
         <source>The number of chunking read threads cannot exceed the number of read buffers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="242"/>
+        <location filename="optionsdialog.cpp" line="245"/>
         <source>The Min chunk size for device &quot;%1&quot; must be a multiple of 2 bytes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="247"/>
+        <location filename="optionsdialog.cpp" line="250"/>
         <source>The total allocation across OpenCL devices cannot exceed 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="345"/>
+        <location filename="optionsdialog.cpp" line="348"/>
         <source>Select ParPar script or binary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="345"/>
+        <location filename="optionsdialog.cpp" line="348"/>
         <source>ParPar script/binary (parpar.js;parpar.exe;parpar.cmd);;All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="367"/>
+        <location filename="optionsdialog.cpp" line="370"/>
         <source>Select Node.js binary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="367"/>
+        <location filename="optionsdialog.cpp" line="370"/>
         <source>Node.js binary (node.exe);;All files (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="630"/>
+        <location filename="optionsdialog.cpp" line="633"/>
         <source>Querying OpenCL devices...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionsdialog.cpp" line="648"/>
+        <location filename="optionsdialog.cpp" line="651"/>
         <source>Failed to query list of OpenCL devices.
 %1</source>
         <translation type="unfinished"></translation>
