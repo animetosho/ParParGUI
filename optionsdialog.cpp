@@ -26,7 +26,7 @@ OptionsDialog::OptionsDialog(QWidget *parent) :
         ui->cboMD5Kernel->addItems({"neon"});
     }
     if(arch == "arm64") {
-        ui->cboProcKernel->addItems({"shuffle128-sve", "shuffle128-sve2", "shuffle2x128-sve2", "shuffle512-sve2", "clmul-sve2"});
+        ui->cboProcKernel->addItems({"clmul-sha3", "shuffle128-sve", "shuffle128-sve2", "shuffle2x128-sve2", "shuffle512-sve2", "clmul-sve2"});
         ui->cboMD5Kernel->addItems({"sve2"});
     }
     if(arch == "i386" || arch == "x86_64") {
@@ -36,6 +36,9 @@ OptionsDialog::OptionsDialog(QWidget *parent) :
         ui->cboProcKernel->addItems({"shuffle-sse", "shuffle-avx", "shuffle-avx2", "shuffle-avx512", "shuffle-vbmi", "shuffle2x-avx2", "shuffle2x-avx512", "affine-sse", "affine-avx2", "affine-avx512", "affine2x-sse", "affine2x-avx2", "affine2x-avx512"});
         ui->cboHashKernel->addItems({"simd", "crc", "simd-crc", "bmi", "avx512"});
         ui->cboMD5Kernel->addItems({"sse", "avx2", "xop", "avx512f", "avx512vl"});
+    }
+    if(arch == "riscv32" || arch == "riscv64") {
+        ui->cboProcKernel->addItems({"shuffle128-rvv"});
     }
 
     devicesListed = false;
