@@ -179,6 +179,7 @@ void MainWindow::adjustExpansion(bool allowExpand) {
     ui->stkSource->setUpdatesEnabled(true);
 
     ui->stkDestSizing->setFixedHeight(ui->stkDestSizing->currentWidget()->layout()->sizeHint().height());
+    ui->stkDestSizing->updateGeometry();
 
     auto destOptsMargin = ui->fraDestOpts->layout()->contentsMargins();
     destOptsMargin.setBottom(outExp ? destOptsMargin.top() : 0);

@@ -990,7 +990,7 @@
                   <bool>false</bool>
                  </property>
                  <property name="currentIndex">
-                  <number>2</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="page_3">
                   <layout class="QGridLayout" name="gridLayout_2">
@@ -1111,6 +1111,12 @@
                  </widget>
                  <widget class="QWidget" name="page_2">
                   <layout class="QFormLayout" name="formLayout_3">
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
                    <item row="0" column="0" colspan="2">
                     <widget class="QRadioButton" name="optDestMaxLfile">
                      <property name="text">
