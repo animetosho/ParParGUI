@@ -33,3 +33,8 @@ License
 =======
 
 This code is Public Domain or [CC0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (or equivalent) if PD isn’t recognised.
+
+See Also
+========
+
+[MultiPar](https://github.com/Yutaka-Sawada/MultiPar) for a full featured (create+repair) PAR2 client (Windows only).
