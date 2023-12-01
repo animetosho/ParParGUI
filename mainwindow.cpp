@@ -135,6 +135,30 @@ MainWindow::MainWindow(QWidget *parent)
     };
     connect(&dlgOptions, &OptionsDialog::settingsUpdated, this, updateMultiple);
     updateMultiple(true);
+
+
+    // handle application arguments
+    const auto& argv = QCoreApplication::arguments();
+    QStringList loadFiles;
+    for(int i=1; i<argv.size(); i++) {
+#ifdef Q_OS_WINDOWS
+        QChar prefix('/');
+#else
+        QChar prefix('-');
+#endif
+        if(argv.at(i).startsWith(prefix)) {
+            QString option = argv.at(i).mid(1);
+            // do something with option
+        } else {
+            loadFiles.append(argv.at(i));
+        }
+    }
+    if(!loadFiles.isEmpty()) {
+        sourceAddFiles(loadFiles);
+        autoSelectDestFile();
+        checkSourceFileCount();
+        updateSrcFilesState();
+    }
 }
 
 MainWindow::~MainWindow()

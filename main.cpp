@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QMessageBox>
 #include "config.h"
 
 int main(int argc, char *argv[])
@@ -28,6 +29,17 @@ int main(int argc, char *argv[])
             a.installTranslator(&translator);
             break;
         }
+    }
+
+    if(a.arguments().contains(
+#ifdef Q_OS_WINDOWS
+                "/h"
+#else
+                "-h"
+#endif
+                )) {
+        QMessageBox::information(NULL, a.tr("ParPar Arguments Help"), a.tr("Currently, ParParGUI only handles file name arguments, which are loaded as source files on application launch."));
+        return 0;
     }
 
     MainWindow w;
