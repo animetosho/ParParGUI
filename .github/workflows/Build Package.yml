@@ -1,0 +1,31 @@
+name: Build Package
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Get deps
+      run: |
+        sudo apt update
+        sudo apt install build-essential cmake qtbase5-dev
+  
+    - name: Run cmake
+      run: cmake .
+
+    - name: Run make
+      run: make
+
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: parpargui
+        path: parpargui
