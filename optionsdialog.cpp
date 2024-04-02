@@ -35,10 +35,10 @@ OptionsDialog::OptionsDialog(QWidget *parent) :
             ui->cboProcKernel->addItems({"xorjit-avx2", "xorjit-avx512"});
         ui->cboProcKernel->addItems({"shuffle-sse", "shuffle-avx", "shuffle-avx2", "shuffle-avx512", "shuffle-vbmi", "shuffle2x-avx2", "shuffle2x-avx512", "affine-sse", "affine-avx2", "affine-avx512", "affine2x-sse", "affine2x-avx2", "affine2x-avx512"});
         ui->cboHashKernel->addItems({"simd", "crc", "simd-crc", "bmi", "avx512"});
-        ui->cboMD5Kernel->addItems({"sse", "avx2", "xop", "avx512f", "avx512vl"});
+        ui->cboMD5Kernel->addItems({"sse", "avx2", "xop", "avx10", "avx512f", "avx512vl"});
     }
     if(arch == "riscv32" || arch == "riscv64") {
-        ui->cboProcKernel->addItems({"shuffle128-rvv"});
+        ui->cboProcKernel->addItems({"shuffle128-rvv", "clmul-rvv"});
     }
 
     devicesListed = false;
