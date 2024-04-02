@@ -1,9 +1,9 @@
 #include "par2calc.h"
 #include "settings.h"
 
-static int simpleCountFromSize(quint64 size, const SrcFileList& files)
+static quint64 simpleCountFromSize(quint64 size, const SrcFileList& files)
 {
-    int count = 0;
+    quint64 count = 0;
     for(const auto& file : files) {
         count += (file.size() + size-1) / size;
     }
@@ -44,15 +44,15 @@ quint64 Par2Calc::sliceSizeFromCount(int& count, quint64 multiple, int limit, co
 
     while(lbound < ubound - multiple) {
         quint64 mid = ((ubound + lbound) / (multiple*2)) * multiple;
-        int testCount = simpleCountFromSize(mid, files);
+        quint64 testCount = simpleCountFromSize(mid, files);
         if(count >= testCount)
             ubound = mid;
         else
             lbound = mid;
     }
 
-    int lboundSlices = simpleCountFromSize(lbound, files);
-    int uboundSlices = simpleCountFromSize(ubound, files);
+    quint64 lboundSlices = simpleCountFromSize(lbound, files);
+    quint64 uboundSlices = simpleCountFromSize(ubound, files);
     if(lboundSlices == count)
         return lbound;
     if(uboundSlices == count)
@@ -66,8 +66,8 @@ quint64 Par2Calc::sliceSizeFromCount(int& count, quint64 multiple, int limit, co
 
     // prefer closer target (as long as we're not specifically moving in a direction, i.e. SpinBox)
     if(moveDir == 0) {
-        int lboundDiff = abs(lboundSlices-count);
-        int uboundDiff = abs(uboundSlices-count);
+        int lboundDiff = abs(static_cast<int>(lboundSlices)-count);
+        int uboundDiff = abs(static_cast<int>(uboundSlices)-count);
         if(lboundDiff < uboundDiff) {
             count = lboundSlices;
             return lbound;
@@ -96,16 +96,18 @@ int Par2Calc::sliceCountFromSize(quint64& size, quint64 multiple, int limit, con
     if(size == 0)
         size = 4;
 
-    int count = simpleCountFromSize(size, files);
+    quint64 count = simpleCountFromSize(size, files);
     if(count > limit) {
-        size = sliceSizeFromCount(count, multiple, limit, files, fileCount);
+        int limitedCount = limit;
+        size = sliceSizeFromCount(limitedCount, multiple, limit, files, fileCount);
+        count = limitedCount;
     }
     return count;
 }
 
 int Par2Calc::maxSliceCount(quint64 multiple, int limit, const SrcFileList& files)
 {
-    int count = 0;
+    quint64 count = 0;
     for(const auto& file : files) {
         count += (file.size() + multiple-1) / multiple;
         if(count > limit) return limit;
