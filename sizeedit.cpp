@@ -18,18 +18,21 @@ SizeEdit::SizeEdit(QWidget *parent) : QLineEdit(parent)
 
 void SizeEdit::setUnit(QChar unit)
 {
+    QLocale l;
+    l.setNumberOptions(QLocale::OmitGroupSeparator);
+
     auto sVal = text();
-    if(sVal.isEmpty() || sVal == QLocale().decimalPoint()) sVal = "1";
+    if(sVal.isEmpty() || sVal == l.decimalPoint()) sVal = "1";
     // strip unit from text if present
     auto cUnit = sVal.at(sVal.size()-1);
     if(cUnit < '0' || cUnit > '9')
         sVal = sVal.left(sVal.length()-1);
 
-    double val = sVal.toDouble();
+    double val = l.toDouble(sVal);
     if(unit == 'B') {
         val = floor(val);
     }
-    auto newText = QString::number(val) + unit.toUpper();
+    auto newText = l.toString(val) + unit.toUpper();
     setText(newText);
     setSelection(newText.length()-1, 1);
 
@@ -96,6 +99,8 @@ void SizeEdit::setBytesApprox(quint64 bytes, bool noTrigger)
 
 void SizeEdit::setBytes(quint64 bytes, bool noTrigger)
 {
+    QLocale l;
+    l.setNumberOptions(QLocale::OmitGroupSeparator);
     // modification to friendlySize: only pick a larger unit if it can be represented exactly
     QStringList units{"B", "K", "M", "G", "T", "P", "E"};
     quint64 v = bytes;
@@ -107,7 +112,7 @@ void SizeEdit::setBytes(quint64 bytes, bool noTrigger)
             // if fractional part can be represented exactly, do the divide and stop
             if((v*100) % 1024 == 0) {
                 v = (v*100) / 1024;
-                s = QLocale().toString(static_cast<double>(v) / 100, 'f', 2) + units[ui+1];
+                s = l.toString(static_cast<double>(v) / 100, 'f', 2) + units[ui+1];
             }
             break;
         }
@@ -115,9 +120,9 @@ void SizeEdit::setBytes(quint64 bytes, bool noTrigger)
         v /= 1024;
     }
     if(s.isEmpty())
-        s = QLocale().toString(v) + units[ui];
+        s = l.toString(v) + units[ui];
     if(noTrigger) blockSignals(true);
-    setText(s.replace(QLocale().groupSeparator(), ""));
+    setText(s.replace(l.groupSeparator(), ""));
     if(noTrigger) blockSignals(false);
 }
 
@@ -130,24 +135,26 @@ void SizeEdit::onEditingFinished()
 {
     if(updateActive) {
         updateActive = false;
+        QLocale l;
+        l.setNumberOptions(QLocale::OmitGroupSeparator);
 
         // fix text
         auto sVal = text();
-        if(sVal.isEmpty() || sVal == QLocale().decimalPoint()) sVal = "1";
+        if(sVal.isEmpty() || sVal == l.decimalPoint()) sVal = "1";
         // strip unit from text if present
         auto cUnit = sVal.at(sVal.size()-1);
         if(cUnit < '0' || cUnit > '9') {
             sVal = sVal.left(sVal.length()-1);
             if(cUnit == '.') cUnit = QChar(0);
-            if(sVal.isEmpty() || sVal == QLocale().decimalPoint()) sVal = "1";
+            if(sVal.isEmpty() || sVal == l.decimalPoint()) sVal = "1";
         } else
             cUnit = QChar(0);
 
-        double val = sVal.toDouble();
+        double val = l.toDouble(sVal);
         if(cUnit == 'B' || cUnit == 0) {
             val = floor(val);
         }
-        auto newText = QString::number(val);
+        auto newText = l.toString(val);
         if(cUnit != 0) newText += cUnit.toUpper();
         blockSignals(true);
         setText(newText);

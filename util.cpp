@@ -21,7 +21,8 @@ QString friendlySize(quint64 s) {
 }
 
 quint64 sizeToBytes(QString size) {
-    if(size.isEmpty() || size == QLocale().decimalPoint()) return 0;
+    QLocale l;
+    if(size.isEmpty() || size == l.decimalPoint()) return 0;
     // extract unit from text
     auto cUnit = size.at(size.size()-1);
     if(cUnit < '0' || cUnit > '9')
@@ -29,7 +30,7 @@ quint64 sizeToBytes(QString size) {
     else
         cUnit = 'B';
 
-    double val = size.toDouble();
+    double val = l.toDouble(size);
     switch(cUnit.toUpper().toLatin1()) {
     case 'E':
         val *= 1024;

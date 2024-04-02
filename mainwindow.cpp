@@ -889,7 +889,7 @@ QStringList MainWindow::getCmdArgs(QHash<QString, QString>& env) const
     if(ui->optInsliceCount->isChecked())
         list << "--input-slices" << QString::number(ui->txtInsliceCount->value());
     if(ui->optOutsliceRatio->isChecked())
-        list << "--recovery-slices" << ui->txtOutsliceRatio->text();
+        list << "--recovery-slices" << (QString::number(ui->txtOutsliceRatio->value()) + "%");
     if(ui->optOutsliceCount->isChecked())
         list << "--recovery-slices" << QString::number(ui->txtOutsliceCount->value());
     if(ui->optOutsliceSize->isChecked())
