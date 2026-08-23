@@ -1530,6 +1530,16 @@
                 </item>
                 <item>
                  <property name="text">
+                  <string>lookup_grp2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>lookup_grp2_nc</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
                   <string notr="true">log</string>
                  </property>
                 </item>
