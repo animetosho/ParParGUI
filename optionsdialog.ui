@@ -1530,12 +1530,12 @@
                 </item>
                 <item>
                  <property name="text">
-                  <string>lookup_grp2</string>
+                  <string notr="true">lookup_grp2</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>lookup_grp2_nc</string>
+                  <string notr="true">lookup_grp2_nc</string>
                  </property>
                 </item>
                 <item>
