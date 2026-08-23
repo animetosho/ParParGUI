@@ -96,6 +96,8 @@ private slots:
 
     void on_txtOclMinChunk_textChanged(const QString &arg1);
 
+    void on_OptionsDialog_rejected();
+
 private:
     Ui::OptionsDialog *ui;
     QHash<QString, OpenclDevice> openclSettings;

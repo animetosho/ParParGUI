@@ -762,5 +762,9 @@ void OptionsDialog::on_cboAllocRecMode_currentIndexChanged(int index)
     ui->stkAllocRec->setCurrentIndex(index);
 }
 
-
+void OptionsDialog::on_OptionsDialog_rejected()
+{
+    // reload previous settings
+    loadSettings();
+}
 
